@@ -1,5 +1,4 @@
-﻿using System;
-namespace FreedomJoy
+﻿namespace FreedomJoy
 {
     public class Button
     {
@@ -22,7 +21,7 @@ namespace FreedomJoy
                 int value = -1;
                 if (_type == ButtonType.Standard)
                 {
-                    value = Convert.ToInt32(_parentController.JoystickState.GetButtons()[ButtonNumber - 1]);
+                    value = _parentController.JoystickState.GetButtons()[ButtonNumber - 1] ? 1 : 0;
                 }
                 if (_type == ButtonType.Pov)
                 {

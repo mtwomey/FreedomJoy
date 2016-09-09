@@ -38,7 +38,7 @@ namespace FreedomJoy
                 if (newPovType == PovType.Button4) { numNewButtons = 4; }
                 if (newPovType == PovType.Button8) { numNewButtons = 8; }
 
-                // Remove any old PovButton refs
+                // Remove any old PovButtons from controller and the refs
                 foreach (Button button in _buttonRefs)
                 {
                     _parentController.Buttons.Remove(button);
