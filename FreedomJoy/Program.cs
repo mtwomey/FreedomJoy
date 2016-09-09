@@ -28,12 +28,12 @@ namespace FreedomJoy
             while (true)
             {
                 _controller.Update();
-                foreach (Button button in _controller.GetButtons())
+                foreach (Button button in _controller.Buttons)
                 {
                     Console.WriteLine("Button " + (button.ButtonNumber) + ": " + button.Value);
                 }
 
-                foreach (Pov pov in _controller.GetPovs())
+                foreach (Pov pov in _controller.Povs)
                 {
                     Console.WriteLine("POV " + (pov.PovNumber) + ": " + pov.Value);
                 }

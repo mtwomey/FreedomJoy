@@ -10,8 +10,8 @@ namespace FreedomJoy
         private readonly int _standardButtonCount;
         private readonly int _povCount;
         public JoystickState JoystickState;
-        public readonly List<Button> Buttons = new List<Button>();
-        public readonly List< Pov> Povs = new List<Pov>();
+        public List<Button> Buttons { get; } = new List<Button>();
+        public List< Pov> Povs { get; }= new List<Pov>();
 
         public Controller(int controllerNumber)
         {
@@ -53,16 +53,6 @@ namespace FreedomJoy
                 );
                 Povs.Add(newPov);
             }
-        }
-
-        public List<Button> GetButtons()
-        {
-            return Buttons;
-        }
-
-        public List< Pov> GetPovs()
-        {
-            return Povs;
         }
 
         public void ConfigurePov(int povNum, Pov.PovType povType)
