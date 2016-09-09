@@ -9,7 +9,7 @@ namespace FreedomJoy
         private readonly Joystick _joystick;
         private readonly int _standardButtonCount;
         private readonly int _povCount;
-        public JoystickState JoystickState;
+        public JoystickState JoystickState { get; set; }
         public List<Button> Buttons { get; } = new List<Button>();
         public List< Pov> Povs { get; }= new List<Pov>();
 
