@@ -20,14 +20,14 @@ namespace FreedomJoy
             _joystick = new Joystick(dinput, di.InstanceGuid);
             _standardButtonCount = _joystick.Capabilities.ButtonCount;
             _povCount = _joystick.Capabilities.PovCount;
-            InitButtons();
-            InitPovs();
+            _initButtons();
+            _initPovs();
             _joystick.SetCooperativeLevel(IntPtr.Zero, CooperativeLevel.Background | CooperativeLevel.Nonexclusive);
             _joystick.Acquire();
             JoystickState = new JoystickState();
         }
 
-        private void InitButtons()
+        private void _initButtons()
         {
             for (int i = 0; i < _standardButtonCount; i++)
             {
@@ -42,7 +42,7 @@ namespace FreedomJoy
             }
         }
 
-        private void InitPovs()
+        private void _initPovs()
         {
             for (int i = 0; i < _povCount; i++)
             {
