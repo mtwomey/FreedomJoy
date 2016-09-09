@@ -49,7 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Button.cs" />
+    <Compile Include="Condition.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Mapping.cs" />
     <Compile Include="Pov.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

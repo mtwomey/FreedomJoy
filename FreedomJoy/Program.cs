@@ -19,12 +19,37 @@ namespace FreedomJoy
             _controller = new Controller(0);
             _controller.ConfigurePov(0, Pov.PovType.Button8);
             _controller.ConfigurePov(0, Pov.PovType.Button4);
-            loop1();
+            MappingConditions();
         }
 
-        static void loop1()
+        static void MappingConditions()
         {
-            int[] povs;
+            while (true)
+            {
+                _controller.Update();
+                Mapping mapping = new Mapping(); // A and B pressed, X and Y both NOT pressed
+                mapping.Conditions.Add(new Condition(delegate ()
+                {
+                    return (_controller.Buttons[0].Value == true);
+                }));
+                mapping.Conditions.Add(new Condition(delegate ()
+                {
+                    return (_controller.Buttons[1].Value == true);
+                }));
+                mapping.Conditions.Add(new Condition(delegate ()
+                {
+                    return (_controller.Buttons[2].Value == false);
+                }));
+                mapping.Conditions.Add(new Condition(delegate ()
+                {
+                    return (_controller.Buttons[3].Value == false);
+                }));
+                Console.WriteLine("Check: " + mapping.Value);
+                System.Threading.Thread.Sleep(1000);
+            }
+        }
+        static void ButtonReadout()
+        {
             while (true)
             {
                 _controller.Update();
@@ -37,7 +62,6 @@ namespace FreedomJoy
                 {
                     Console.WriteLine("POV " + (pov.PovNumber) + ": " + pov.Value);
                 }
-
                 System.Threading.Thread.Sleep(1000);
             }
         }
