@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using vJoyInterfaceWrap;
 
 namespace FreedomJoy
@@ -12,7 +13,8 @@ namespace FreedomJoy
             //VJoyTest01();
             try
             {
-                StructTest();
+                //StructTest();
+                MappingLoopTest01();
             }
             catch (Exception ex)
             {
@@ -20,6 +22,81 @@ namespace FreedomJoy
             }
 
         }
+
+        static void MappingLoopTest01()
+        {
+            // Setup
+            Controller controller = new Controller(0);
+            controller.ConfigurePov(0, Pov.PovType.Button4); // Make dpad 4 buttons
+            Console.WriteLine(controller.Buttons.Count);
+            Vcontroller vJoy = new Vcontroller(1);
+            Console.WriteLine(vJoy.Buttons.Count);
+            Console.WriteLine("Test ID: 4");
+
+            // Setup mapping
+            Mapping map01 = new Mapping(
+                conditions: new List<Condition>()
+                {
+                    new Condition(delegate()
+                    {
+                        return (controller.Buttons[0].Value == true); // A pressed
+                    }),
+                     new Condition(delegate()
+                    {
+                        return (controller.Buttons[1].Value == true); // B pressed
+                    }),
+                    new Condition(delegate()
+                    {
+                        return (controller.Buttons[2].Value == false); // X NOT pressed
+                    }),
+                    new Condition(delegate()
+                    {
+                        return (controller.Buttons[3].Value == false); // Y NOT pressed
+                    })
+                },
+                trueAction: delegate()
+                {
+                    vJoy.Buttons[7].Value = true; // Press button 8 on vJoy
+                },
+                falseAction: delegate()
+                {
+                    vJoy.Buttons[7].Value = false; // Unpress button 8 on vJoy
+                }
+            );
+
+            Mapping map02 = new Mapping(
+                conditions: new List<Condition>()
+                {
+                    new Condition(delegate()
+                    {
+                        return (controller.Buttons[10].Value == true); // dpad up
+                    })
+                }, 
+                trueAction: delegate()
+                {
+                    vJoy.Buttons[1].Value = true; // Press button 2 on vJoy
+                },
+                falseAction: delegate()
+                {
+                    vJoy.Buttons[1].Value = false; // Unpress button 2 on vJoy
+                }
+            );
+
+            // Add mappings to list
+            ControllerMaps controllerMaps = new ControllerMaps();
+            controllerMaps.Add(map01);
+            controllerMaps.Add(map02);
+
+            // Here we go!
+            while (true)
+            {
+                controller.Update();
+                controllerMaps.Update();
+                vJoy.Update();
+                System.Threading.Thread.Sleep(20);
+            }
+        }
+
 
         static void StructTest()
         {
@@ -73,35 +150,35 @@ namespace FreedomJoy
             vJoy.Close();
         }
 
-        static void MappingConditions()
-        {
-            Controller controller = new Controller(0);
-            controller.ConfigurePov(0, Pov.PovType.Button8);
-            controller.ConfigurePov(0, Pov.PovType.Button4);
-            while (true)
-            {
-                controller.Update();
-                Mapping mapping = new Mapping(); // A and B pressed, X and Y both NOT pressed
-                mapping.Conditions.Add(new Condition(delegate ()
-                {
-                    return (controller.Buttons[0].Value == true);
-                }));
-                mapping.Conditions.Add(new Condition(delegate ()
-                {
-                    return (controller.Buttons[1].Value == true);
-                }));
-                mapping.Conditions.Add(new Condition(delegate ()
-                {
-                    return (controller.Buttons[2].Value == false);
-                }));
-                mapping.Conditions.Add(new Condition(delegate ()
-                {
-                    return (controller.Buttons[3].Value == false);
-                }));
-                Console.WriteLine("Check: " + mapping.Value);
-                System.Threading.Thread.Sleep(1000);
-            }
-        }
+        //static void MappingConditions()
+        //{
+        //    Controller controller = new Controller(0);
+        //    controller.ConfigurePov(0, Pov.PovType.Button8);
+        //    controller.ConfigurePov(0, Pov.PovType.Button4);
+        //    while (true)
+        //    {
+        //        controller.Update();
+        //        Mapping mapping = new Mapping(); // A and B pressed, X and Y both NOT pressed
+        //        mapping.Conditions.Add(new Condition(delegate ()
+        //        {
+        //            return (controller.Buttons[0].Value == true);
+        //        }));
+        //        mapping.Conditions.Add(new Condition(delegate ()
+        //        {
+        //            return (controller.Buttons[1].Value == true);
+        //        }));
+        //        mapping.Conditions.Add(new Condition(delegate ()
+        //        {
+        //            return (controller.Buttons[2].Value == false);
+        //        }));
+        //        mapping.Conditions.Add(new Condition(delegate ()
+        //        {
+        //            return (controller.Buttons[3].Value == false);
+        //        }));
+        //        Console.WriteLine("Check: " + mapping.Value);
+        //        System.Threading.Thread.Sleep(1000);
+        //    }
+        //}
         static void ButtonReadout()
         {
             Controller controller = new Controller(0);
