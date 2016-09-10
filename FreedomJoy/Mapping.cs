@@ -6,7 +6,7 @@ namespace FreedomJoy
     {
         public List<Condition> Conditions { get; }= new List<Condition>();
 
-        public bool Value // Debating whethere I should name this "Value"...
+        public bool Value // Debating whether I should name this "Value"...
         {
             get // Return true if all Conditions are true
             {

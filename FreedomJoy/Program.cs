@@ -1,48 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms.VisualStyles;
-using SlimDX;
-using SlimDX.DirectInput;
-using SlimDX.XInput;
 
 namespace FreedomJoy
 {
     class Program
     {
-        private static Controller _controller;
         static void Main(string[] args)
         {
-            _controller = new Controller(0);
-            _controller.ConfigurePov(0, Pov.PovType.Button8);
-            _controller.ConfigurePov(0, Pov.PovType.Button4);
-            MappingConditions();
+            //ButtonReadout();
+            //MappingConditions();
+            VJoyTest01();
+        }
+
+        static void VJoyTest01()
+        {
+            new Vjoy().GetInfo();
         }
 
         static void MappingConditions()
         {
+            Controller controller = new Controller(0);
+            controller.ConfigurePov(0, Pov.PovType.Button8);
+            controller.ConfigurePov(0, Pov.PovType.Button4);
             while (true)
             {
-                _controller.Update();
+                controller.Update();
                 Mapping mapping = new Mapping(); // A and B pressed, X and Y both NOT pressed
                 mapping.Conditions.Add(new Condition(delegate ()
                 {
-                    return (_controller.Buttons[0].Value == true);
+                    return (controller.Buttons[0].Value == true);
                 }));
                 mapping.Conditions.Add(new Condition(delegate ()
                 {
-                    return (_controller.Buttons[1].Value == true);
+                    return (controller.Buttons[1].Value == true);
                 }));
                 mapping.Conditions.Add(new Condition(delegate ()
                 {
-                    return (_controller.Buttons[2].Value == false);
+                    return (controller.Buttons[2].Value == false);
                 }));
                 mapping.Conditions.Add(new Condition(delegate ()
                 {
-                    return (_controller.Buttons[3].Value == false);
+                    return (controller.Buttons[3].Value == false);
                 }));
                 Console.WriteLine("Check: " + mapping.Value);
                 System.Threading.Thread.Sleep(1000);
@@ -50,15 +47,18 @@ namespace FreedomJoy
         }
         static void ButtonReadout()
         {
+            Controller controller = new Controller(0);
+            controller.ConfigurePov(0, Pov.PovType.Button8);
+            controller.ConfigurePov(0, Pov.PovType.Button4); // Did this twice, just to make sure that it could "undo" itself if needed...
             while (true)
             {
-                _controller.Update();
-                foreach (Button button in _controller.Buttons)
+                controller.Update();
+                foreach (Button button in controller.Buttons)
                 {
                     Console.WriteLine("Button " + (button.ButtonNumber) + ": " + button.Value);
                 }
 
-                foreach (Pov pov in _controller.Povs)
+                foreach (Pov pov in controller.Povs)
                 {
                     Console.WriteLine("POV " + (pov.PovNumber) + ": " + pov.Value);
                 }
