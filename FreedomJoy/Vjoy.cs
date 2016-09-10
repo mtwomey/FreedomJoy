@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using vJoyInterfaceWrap;
 
 namespace FreedomJoy
@@ -26,6 +22,30 @@ namespace FreedomJoy
                 Console.WriteLine("Version: " + _vJoy.GetvJoySerialNumberString());
                 UInt32 DllVer = 0, DrvVer = 0;
                 Console.WriteLine("Driver Match: " + _vJoy.DriverMatch(ref DllVer, ref DrvVer));
+
+                uint id = 1; // First device is 1 (not 0) - there is also no way to check for the number of devices (at least that I can find).
+                VjdStat status = _vJoy.GetVJDStatus(id);
+
+                switch (status)
+                {
+                    case VjdStat.VJD_STAT_OWN:
+                        Console.WriteLine("vJoy Device {0} is already owned by this feeder\n", id);
+                        break;
+                    case VjdStat.VJD_STAT_FREE:
+                        Console.WriteLine("vJoy Device {0} is free\n", id);
+                        break;
+                    case VjdStat.VJD_STAT_BUSY:
+                        Console.WriteLine(
+                           "vJoy Device {0} is already owned by another feeder\nCannot continue\n", id);
+                        return;
+                    case VjdStat.VJD_STAT_MISS:
+                        Console.WriteLine(
+                            "vJoy Device {0} is not installed or disabled\nCannot continue\n", id);
+                        return;
+                    default:
+                        Console.WriteLine("vJoy Device {0} general error\nCannot continue\n", id);
+                        return;
+                };
             }
             else
             {
