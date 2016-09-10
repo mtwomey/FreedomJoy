@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SlimDX.DirectInput;
+using SlimDX.XAudio2;
 
 namespace FreedomJoy
 {
@@ -64,6 +65,11 @@ namespace FreedomJoy
         {
             _joystick.Poll();
             JoystickState = _joystick.GetCurrentState();
+        }
+
+        public void Close()
+        {
+            _joystick.Dispose();
         }
     }
 }

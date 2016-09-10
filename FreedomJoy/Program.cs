@@ -1,4 +1,5 @@
 ﻿using System;
+using vJoyInterfaceWrap;
 
 namespace FreedomJoy
 {
@@ -8,12 +9,68 @@ namespace FreedomJoy
         {
             //ButtonReadout();
             //MappingConditions();
-            VJoyTest01();
+            //VJoyTest01();
+            try
+            {
+                StructTest();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+            }
+
+        }
+
+        static void StructTest()
+        {
+            Vcontroller vJoy = new Vcontroller(1);
+            Console.WriteLine("Test #2");
+            vJoy.JoystickState joystickState = new vJoy.JoystickState();
+
+            Console.WriteLine("X Axis: " + joystickState.AxisX);
+
+            while (true)
+            {
+                vJoy.Buttons[3].Value = true;
+                vJoy.Buttons[3].Value = false;
+                vJoy.Buttons[4].Value = true;
+                vJoy.Update();
+
+                System.Threading.Thread.Sleep(20);
+            }
+
+
+        }
+        static void MapTest01()
+        {
+            Controller controller = new Controller(0);
+            Console.WriteLine(controller.Buttons.Count);
+            Vcontroller vJoy = new Vcontroller(1);
+            Console.WriteLine(vJoy.Buttons.Count);
+            Console.WriteLine("1");
+
+            while (true)
+            {
+                controller.Update();
+                vJoy.Buttons[0].Value = controller.Buttons[0].Value;
+                System.Threading.Thread.Sleep(20);
+
+                //vJoy.Buttons[0].Value = !vJoy.Buttons[0].Value;
+                //System.Threading.Thread.Sleep(500);
+            }
+
+            controller.Close();
+            vJoy.Close();
         }
 
         static void VJoyTest01()
         {
-            new Vjoy().GetInfo();
+            Vcontroller vJoy = new Vcontroller(1);
+            foreach (VjoyButton button in vJoy.Buttons)
+            {
+                button.Value = true;
+            }
+            vJoy.Close();
         }
 
         static void MappingConditions()
