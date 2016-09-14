@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SlimDX.DirectInput;
 using vJoyInterfaceWrap;
 
 namespace FreedomJoy
@@ -17,12 +18,13 @@ namespace FreedomJoy
                 //MappingLoopTest01();
                 //printVjoyStatus();
 
-                vJoy Vjoy = new vJoy();
-                VjdStat status;
-                status = Vjoy.GetVJDStatus(1);
+                PrintControllerInfo();
+                MappingLoopTest01(
+                    controllerId: 1,
+                    vJoyId: 1    
+                );
 
 
-                ReinstTest();
             }
             catch (Exception ex)
             {
@@ -31,33 +33,43 @@ namespace FreedomJoy
 
         }
 
+        static void PrintControllerInfo()
+        {
+            Console.WriteLine("\nSearching for DirectInput Devices...\n");
+            DirectInput dinput = new DirectInput();
+            IList<DeviceInstance> devices = dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly);
+            for (int i = 0; i < devices.Count; i++)
+            {
+                DeviceInstance device = devices[i];
+                Console.WriteLine("Device #" + i + " Found: " + device.ProductName);
+            }
+            Console.WriteLine("Done.\n");
+        }
+
         static void ReinstTest()
         {
-            System.Threading.Thread.Sleep(1000);
             for (int i = 0; i < 10; i++)
             {
-                printVjoyStatus(); 
+                printVjoyStatus(1); 
             }
         }
-        static void printVjoyStatus()
+        static void printVjoyStatus(uint vJoyId)
         {
-            Vcontroller vJoy = new Vcontroller(1);
-            Controller controller = new Controller(0);
+            Vcontroller vJoy = new Vcontroller(vJoyId);
             foreach (KeyValuePair<string, string> entry in vJoy.GetInfo())
             {
                 Console.WriteLine(entry.Key + ": " + entry.Value);
             }
             vJoy.Close();
-            controller.Close();
         }
 
-        static void MappingLoopTest01()
+        static void MappingLoopTest01(int controllerId, uint vJoyId)
         {
             // Setup
-            Controller controller = new Controller(0);
+            Controller controller = new Controller(controllerId);
             controller.ConfigurePov(0, Pov.PovType.Button4); // Make dpad 4 buttons
             Console.WriteLine(controller.Buttons.Count);
-            Vcontroller vJoy = new Vcontroller(1);
+            Vcontroller vJoy = new Vcontroller(vJoyId);
             Console.WriteLine(vJoy.Buttons.Count);
             Console.WriteLine("Test ID: 4");
 
