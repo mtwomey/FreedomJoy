@@ -14,13 +14,41 @@ namespace FreedomJoy
             try
             {
                 //StructTest();
-                MappingLoopTest01();
+                //MappingLoopTest01();
+                //printVjoyStatus();
+
+                vJoy Vjoy = new vJoy();
+                VjdStat status;
+                status = Vjoy.GetVJDStatus(1);
+
+
+                ReinstTest();
             }
             catch (Exception ex)
             {
                 Console.Write(ex.ToString());
             }
 
+        }
+
+        static void ReinstTest()
+        {
+            System.Threading.Thread.Sleep(1000);
+            for (int i = 0; i < 10; i++)
+            {
+                printVjoyStatus(); 
+            }
+        }
+        static void printVjoyStatus()
+        {
+            Vcontroller vJoy = new Vcontroller(1);
+            Controller controller = new Controller(0);
+            foreach (KeyValuePair<string, string> entry in vJoy.GetInfo())
+            {
+                Console.WriteLine(entry.Key + ": " + entry.Value);
+            }
+            vJoy.Close();
+            controller.Close();
         }
 
         static void MappingLoopTest01()

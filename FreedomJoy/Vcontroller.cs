@@ -19,7 +19,16 @@ namespace FreedomJoy
             _vJoyNumber = vJoyNumber;
             Vjoy = new vJoy();
             JoystickState = new vJoy.JoystickState();
-            Vjoy.AcquireVJD(_vJoyNumber);
+            VjdStat status;
+            status = Vjoy.GetVJDStatus(_vJoyNumber);
+            if (status == VjdStat.VJD_STAT_OWN || status == VjdStat.VJD_STAT_FREE)
+            {
+                Vjoy.AcquireVJD(_vJoyNumber);
+            }
+            else
+            {
+                throw (new Exception("Could not acquire Vjoy"));
+            }
             Vjoy.ResetVJD(_vJoyNumber);
             _buttonCount = Vjoy.GetVJDButtonNumber(_vJoyNumber);
             _initButtons();
@@ -60,45 +69,51 @@ namespace FreedomJoy
             Vjoy.SetBtn(true, _vJoyNumber, 3);
         }
 
-        public void GetInfo() // Just for testing
+        public Dictionary<string, string> GetInfo() // Just for testing
         {
+            Dictionary<string, string> info = new Dictionary<string, string>();
             if (Vjoy.vJoyEnabled())
             {
-                Console.WriteLine("Vendor: " + Vjoy.GetvJoyManufacturerString());
-                Console.WriteLine("Product: " + Vjoy.GetvJoyProductString());
-                Console.WriteLine("Serial: " + Vjoy.GetvJoyVersion()); // Why are serial and version backwards??
-                Console.WriteLine("Version: " + Vjoy.GetvJoySerialNumberString());
+                info["Vendor"] = Vjoy.GetvJoyManufacturerString();
+                info["Product"] = Vjoy.GetvJoyProductString();
+                info["Serial"] = Vjoy.GetvJoyVersion().ToString(); // Why are serial and version backwards??
+                info["Version"] = Vjoy.GetvJoySerialNumberString();
+                info["Vendor"] = Vjoy.GetvJoyManufacturerString();
+                info["Vendor"] = Vjoy.GetvJoyManufacturerString();
+                info["Vendor"] = Vjoy.GetvJoyManufacturerString();
+                info["Vendor"] = Vjoy.GetvJoyManufacturerString();
+                info["Vendor"] = Vjoy.GetvJoyManufacturerString();
+
                 UInt32 DllVer = 0, DrvVer = 0;
-                Console.WriteLine("Driver Match: " + Vjoy.DriverMatch(ref DllVer, ref DrvVer));
-                Console.WriteLine("Number of Buttons: " + Vjoy.GetVJDButtonNumber(1));
+                info["Driver Match"] = Vjoy.DriverMatch(ref DllVer, ref DrvVer).ToString();
+                info["Number of Buttons"] = Vjoy.GetVJDButtonNumber(_vJoyNumber).ToString();
 
                 uint id = 1; // First device is 1 (not 0) - there is also no way to check for the number of devices (at least that I can find).
                 VjdStat status = Vjoy.GetVJDStatus(id);
                 switch (status)
                 {
                     case VjdStat.VJD_STAT_OWN:
-                        Console.WriteLine("vJoy Device {0} is already owned by this feeder\n", id);
+                        info["Status"] = "vJoy Device " + _vJoyNumber + " is already owned by this feeder";
                         break;
                     case VjdStat.VJD_STAT_FREE:
-                        Console.WriteLine("vJoy Device {0} is free\n", id);
+                        info["Status"] = "vJoy Device " + _vJoyNumber + " is free";
                         break;
                     case VjdStat.VJD_STAT_BUSY:
-                        Console.WriteLine(
-                           "vJoy Device {0} is already owned by another feeder\nCannot continue\n", id);
-                        return;
+                        info["Status"] = "vJoy Device " + _vJoyNumber + " is already owned by another feeder";
+                        break;
                     case VjdStat.VJD_STAT_MISS:
-                        Console.WriteLine(
-                            "vJoy Device {0} is not installed or disabled\nCannot continue\n", id);
-                        return;
+                        info["Status"] = "vJoy Device " + _vJoyNumber + "  is not installed or disabled";
+                        break;
                     default:
-                        Console.WriteLine("vJoy Device {0} general error\nCannot continue\n", id);
-                        return;
+                        info["Status"] = "vJoy Device " + _vJoyNumber + " general error";
+                        break;
                 }
             }
             else
             {
-                Console.WriteLine("vJoy driver not enabled: Failed Getting vJoy attributes.");
+                info["Status"] = "vJoy driver not enabled: Failed Getting vJoy attributes";
             }
+            return info;
         }
 
     }

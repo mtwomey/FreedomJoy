@@ -5,20 +5,21 @@ using SlimDX.XAudio2;
 
 namespace FreedomJoy
 {
-    public class Controller
+    public class Controller : IDisposable
     {
         private readonly Joystick _joystick;
         private readonly int _standardButtonCount;
         private readonly int _povCount;
+        private DirectInput _dinput; // Not really sure if I need to hang on to this for closing or if I can dispose of it after I get the joystick...
         public JoystickState JoystickState { get; set; }
         public List<Button> Buttons { get; } = new List<Button>();
         public List< Pov> Povs { get; }= new List<Pov>();
 
         public Controller(int controllerNumber)
         {
-            DirectInput dinput = new DirectInput();
-            DeviceInstance di = dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly)[controllerNumber];
-            _joystick = new Joystick(dinput, di.InstanceGuid);
+             _dinput = new DirectInput();
+            DeviceInstance di = _dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly)[controllerNumber];
+            _joystick = new Joystick(_dinput, di.InstanceGuid);
             _standardButtonCount = _joystick.Capabilities.ButtonCount;
             _povCount = _joystick.Capabilities.PovCount;
             _initButtons();
@@ -70,6 +71,13 @@ namespace FreedomJoy
         public void Close()
         {
             _joystick.Dispose();
+            _dinput.Dispose();
+        }
+
+        public void Dispose()
+        {
+            _joystick.Dispose();
+            _dinput.Dispose();
         }
     }
 }
