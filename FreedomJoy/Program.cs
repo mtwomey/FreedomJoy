@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using SlimDX.DirectInput;
-using vJoyInterfaceWrap;
 
 namespace FreedomJoy
 {
@@ -19,10 +18,11 @@ namespace FreedomJoy
                 //printVjoyStatus();
 
                 PrintControllerInfo();
-                MappingLoopTest01(
-                    controllerId: 1,
-                    vJoyId: 1    
-                );
+                printVjoyStatus(1);
+//                MappingLoopTest01(
+//                    controllerId: 0,
+//                    vJoyId: 1    
+//                );
 
 
             }
@@ -138,26 +138,26 @@ namespace FreedomJoy
         }
 
 
-        static void StructTest()
-        {
-            Vcontroller vJoy = new Vcontroller(1);
-            Console.WriteLine("Test #2");
-            vJoy.JoystickState joystickState = new vJoy.JoystickState();
-
-            Console.WriteLine("X Axis: " + joystickState.AxisX);
-
-            while (true)
-            {
-                vJoy.Buttons[3].Value = true;
-                vJoy.Buttons[3].Value = false;
-                vJoy.Buttons[4].Value = true;
-                vJoy.Update();
-
-                System.Threading.Thread.Sleep(20);
-            }
-
-
-        }
+//        static void StructTest()
+//        {
+//            Vcontroller vJoy = new Vcontroller(1);
+//            Console.WriteLine("Test #2");
+//            vJoy.JoystickState joystickState = new vJoy.JoystickState();
+//
+//            Console.WriteLine("X Axis: " + joystickState.AxisX);
+//
+//            while (true)
+//            {
+//                vJoy.Buttons[3].Value = true;
+//                vJoy.Buttons[3].Value = false;
+//                vJoy.Buttons[4].Value = true;
+//                vJoy.Update();
+//
+//                System.Threading.Thread.Sleep(20);
+//            }
+//
+//
+//        }
         static void MapTest01()
         {
             Controller controller = new Controller(0);

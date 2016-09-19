@@ -4,10 +4,12 @@ using System;
 using System.Collections.Generic;
 using vJoyInterfaceWrap;
 
+
 namespace FreedomJoy
 {
     class Vcontroller
     {
+
         public vJoy Vjoy;
         private readonly uint _vJoyNumber;
         private readonly int _buttonCount;
@@ -78,11 +80,6 @@ namespace FreedomJoy
                 info["Product"] = Vjoy.GetvJoyProductString();
                 info["Serial"] = Vjoy.GetvJoyVersion().ToString(); // Why are serial and version backwards??
                 info["Version"] = Vjoy.GetvJoySerialNumberString();
-                info["Vendor"] = Vjoy.GetvJoyManufacturerString();
-                info["Vendor"] = Vjoy.GetvJoyManufacturerString();
-                info["Vendor"] = Vjoy.GetvJoyManufacturerString();
-                info["Vendor"] = Vjoy.GetvJoyManufacturerString();
-                info["Vendor"] = Vjoy.GetvJoyManufacturerString();
 
                 UInt32 DllVer = 0, DrvVer = 0;
                 info["Driver Match"] = Vjoy.DriverMatch(ref DllVer, ref DrvVer).ToString();
