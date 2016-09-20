@@ -4,10 +4,10 @@
     {
         private readonly Vcontroller _parentVcontroller;
         public uint ButtonNumber { get; set; }
-        private bool _value;
-        public bool Value
+        private bool _state;
+        public bool State
         {
-            get { return _value; }
+            get { return _state; }
             set
             {
                 if (value)
@@ -18,7 +18,7 @@
                 {
                     _parentVcontroller.JoystickState.Buttons &= ~(uint)1 << (int)(ButtonNumber - 1);
                 }
-                _value = value;
+                _state = value;
             }
         }
 

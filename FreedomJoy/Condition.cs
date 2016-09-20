@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows.Forms;
 
 namespace FreedomJoy
 {
-    class Condition
+
+    public class Condition : ICondition
     {
-        public bool Value
+        public bool State
         {
             get { return _condition(); }
         }

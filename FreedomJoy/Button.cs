@@ -14,7 +14,7 @@
         private readonly Controller _parentController;
         private readonly Pov _povParent;
         public int ButtonNumber { get; set; }
-        public bool Value
+        public bool State
         {
             get
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SlimDX.DirectInput;
 
+
 namespace FreedomJoy
 {
     class Program
@@ -19,10 +20,10 @@ namespace FreedomJoy
 
                 PrintControllerInfo();
                 printVjoyStatus(1);
-//                MappingLoopTest01(
-//                    controllerId: 0,
-//                    vJoyId: 1    
-//                );
+                MappingLoopTest02(
+                    controllerId: 0,
+                    vJoyId: 1    
+                );
 
 
             }
@@ -63,6 +64,52 @@ namespace FreedomJoy
             vJoy.Close();
         }
 
+
+        static void MappingLoopTest02(int controllerId, uint vJoyId)
+        {
+            Controller controller = new Controller(controllerId);
+            Vcontroller vcontroller = new Vcontroller(vJoyId);
+
+            ControllerMaps controllerMaps = new ControllerMaps();
+
+
+            IMapping map03 = new SimpleButtonMapping(
+                controllerPressedButtons: new int[] {1},
+                vJoyPressedButtons: new int[] {11, 12},
+                controller: controller,
+                vcontroller: vcontroller
+            );
+
+            IMapping map04 = new RapidFireButtonMapping(
+                controllerPressedButtons: new int[] { 2 },
+                vJoyPressedButtons: new int[] { 3 },
+                controller: controller,
+                vcontroller: vcontroller,
+                rapidFireRate: 100
+            );
+
+            IMapping map05 = new RapidFireButtonMapping(
+                controllerPressedButtons: new int[] { 0 },
+                vJoyPressedButtons: new int[] { 1 },
+                controller: controller,
+                vcontroller: vcontroller,
+                rapidFireRate: 3000
+            );
+
+            controllerMaps.Add(map03);
+            controllerMaps.Add(map04);
+            controllerMaps.Add(map05);
+
+            while (true)
+            {
+                controller.Update();
+                controllerMaps.Update();
+                vcontroller.Update();
+                System.Threading.Thread.Sleep(vcontroller.UpdateRate);
+            }
+
+        }
+
         static void MappingLoopTest01(int controllerId, uint vJoyId)
         {
             // Setup
@@ -75,50 +122,50 @@ namespace FreedomJoy
 
             // Setup mapping
             Mapping map01 = new Mapping(
-                conditions: new List<Condition>()
+                conditions: new List<ICondition>()
                 {
                     new Condition(delegate()
                     {
-                        return (controller.Buttons[0].Value == true); // A pressed
+                        return (controller.Buttons[0].State == true); // A pressed
                     }),
                      new Condition(delegate()
                     {
-                        return (controller.Buttons[1].Value == true); // B pressed
+                        return (controller.Buttons[1].State == true); // B pressed
                     }),
                     new Condition(delegate()
                     {
-                        return (controller.Buttons[2].Value == false); // X NOT pressed
+                        return (controller.Buttons[2].State == false); // X NOT pressed
                     }),
                     new Condition(delegate()
                     {
-                        return (controller.Buttons[3].Value == false); // Y NOT pressed
+                        return (controller.Buttons[3].State == false); // Y NOT pressed
                     })
                 },
                 trueAction: delegate()
                 {
-                    vJoy.Buttons[7].Value = true; // Press button 8 on vJoy
+                    vJoy.Buttons[7].State = true; // Press button 8 on vJoy
                 },
                 falseAction: delegate()
                 {
-                    vJoy.Buttons[7].Value = false; // Unpress button 8 on vJoy
+                    vJoy.Buttons[7].State = false; // Unpress button 8 on vJoy
                 }
             );
 
             Mapping map02 = new Mapping(
-                conditions: new List<Condition>()
+                conditions: new List<ICondition>()
                 {
                     new Condition(delegate()
                     {
-                        return (controller.Buttons[10].Value == true); // dpad up
+                        return (controller.Buttons[10].State == true); // dpad up
                     })
                 }, 
                 trueAction: delegate()
                 {
-                    vJoy.Buttons[1].Value = true; // Press button 2 on vJoy
+                    vJoy.Buttons[1].State = true; // Press button 2 on vJoy
                 },
                 falseAction: delegate()
                 {
-                    vJoy.Buttons[1].Value = false; // Unpress button 2 on vJoy
+                    vJoy.Buttons[1].State = false; // Unpress button 2 on vJoy
                 }
             );
 
@@ -148,9 +195,9 @@ namespace FreedomJoy
 //
 //            while (true)
 //            {
-//                vJoy.Buttons[3].Value = true;
-//                vJoy.Buttons[3].Value = false;
-//                vJoy.Buttons[4].Value = true;
+//                vJoy.Buttons[3].State = true;
+//                vJoy.Buttons[3].State = false;
+//                vJoy.Buttons[4].State = true;
 //                vJoy.Update();
 //
 //                System.Threading.Thread.Sleep(20);
@@ -169,10 +216,10 @@ namespace FreedomJoy
             while (true)
             {
                 controller.Update();
-                vJoy.Buttons[0].Value = controller.Buttons[0].Value;
+                vJoy.Buttons[0].State = controller.Buttons[0].State;
                 System.Threading.Thread.Sleep(20);
 
-                //vJoy.Buttons[0].Value = !vJoy.Buttons[0].Value;
+                //vJoy.Buttons[0].State = !vJoy.Buttons[0].State;
                 //System.Threading.Thread.Sleep(500);
             }
 
@@ -185,7 +232,7 @@ namespace FreedomJoy
             Vcontroller vJoy = new Vcontroller(1);
             foreach (VjoyButton button in vJoy.Buttons)
             {
-                button.Value = true;
+                button.State = true;
             }
             vJoy.Close();
         }
@@ -201,21 +248,21 @@ namespace FreedomJoy
         //        Mapping mapping = new Mapping(); // A and B pressed, X and Y both NOT pressed
         //        mapping.Conditions.Add(new Condition(delegate ()
         //        {
-        //            return (controller.Buttons[0].Value == true);
+        //            return (controller.Buttons[0].State == true);
         //        }));
         //        mapping.Conditions.Add(new Condition(delegate ()
         //        {
-        //            return (controller.Buttons[1].Value == true);
+        //            return (controller.Buttons[1].State == true);
         //        }));
         //        mapping.Conditions.Add(new Condition(delegate ()
         //        {
-        //            return (controller.Buttons[2].Value == false);
+        //            return (controller.Buttons[2].State == false);
         //        }));
         //        mapping.Conditions.Add(new Condition(delegate ()
         //        {
-        //            return (controller.Buttons[3].Value == false);
+        //            return (controller.Buttons[3].State == false);
         //        }));
-        //        Console.WriteLine("Check: " + mapping.Value);
+        //        Console.WriteLine("Check: " + mapping.State);
         //        System.Threading.Thread.Sleep(1000);
         //    }
         //}
@@ -229,7 +276,7 @@ namespace FreedomJoy
                 controller.Update();
                 foreach (Button button in controller.Buttons)
                 {
-                    Console.WriteLine("Button " + (button.ButtonNumber) + ": " + button.Value);
+                    Console.WriteLine("Button " + (button.ButtonNumber) + ": " + button.State);
                 }
 
                 foreach (Pov pov in controller.Povs)

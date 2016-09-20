@@ -4,16 +4,16 @@ namespace FreedomJoy
 {
     class ControllerMaps
     {
-        private readonly List<Mapping> _mappings = new List<Mapping>();
+        private readonly List<IMapping> _mappings = new List<IMapping>();
 
-        public void Add(Mapping mapping)
+        public void Add(IMapping mapping)
         {
             _mappings.Add(mapping);
         }
 
         public void Update()
         {
-            foreach (Mapping mapping in _mappings)
+            foreach (IMapping mapping in _mappings)
             {
                 mapping.Update();
             }

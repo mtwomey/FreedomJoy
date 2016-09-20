@@ -15,8 +15,9 @@ namespace FreedomJoy
         private readonly int _buttonCount;
         public vJoy.JoystickState JoystickState; // Doesn't work as a property becase it's a struct
         public List<VjoyButton> Buttons { get; } = new List<VjoyButton>();
+        public int UpdateRate { get; set; }
 
-        public Vcontroller(uint vJoyNumber)
+        public Vcontroller(uint vJoyNumber, int updateRate = 20)
         {
             _vJoyNumber = vJoyNumber;
             Vjoy = new vJoy();
@@ -35,6 +36,7 @@ namespace FreedomJoy
             _buttonCount = Vjoy.GetVJDButtonNumber(_vJoyNumber);
             _initButtons();
             _initJoystickState();
+            UpdateRate = updateRate;
         }
 
         public void Update()
