@@ -274,7 +274,7 @@ namespace FreedomJoy
             while (true)
             {
                 controller.Update();
-                foreach (Button button in controller.Buttons)
+                foreach (StandardButton button in controller.Buttons)
                 {
                     Console.WriteLine("Button " + (button.ButtonNumber) + ": " + button.State);
                 }
