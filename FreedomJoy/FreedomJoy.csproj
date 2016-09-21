@@ -126,27 +126,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Button.cs" />
-    <Compile Include="PovButton.cs" />
-    <Compile Include="StandardButton.cs" />
-    <Compile Include="Condition.cs" />
-    <Compile Include="Controller.cs" />
-    <Compile Include="ControllerMaps.cs" />
-    <Compile Include="ICondition.cs" />
-    <Compile Include="IMapping.cs" />
-    <Compile Include="Mapping.cs" />
-    <Compile Include="Pov.cs" />
+    <Compile Include="Button\Button.cs" />
+    <Compile Include="Button\PovButton.cs" />
+    <Compile Include="Button\StandardButton.cs" />
+    <Compile Include="Controller\Controller.cs" />
+    <Compile Include="Controller\ControllerMaps.cs" />
+    <Compile Include="Mapping\Condition.cs" />
+    <Compile Include="Mapping\ICondition.cs" />
+    <Compile Include="Mapping\IMapping.cs" />
+    <Compile Include="Mapping\Mapping.cs" />
+    <Compile Include="Mapping\RapidFireButtonMapping.cs" />
+    <Compile Include="Mapping\SimpleButtonMapping.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RapidFireButtonMapping.cs" />
-    <Compile Include="SimpleButtonMapping.cs" />
-    <Compile Include="Vcontroller.cs" />
-    <Compile Include="VjoyButton.cs" />
+    <Compile Include="vJoy\Pov.cs" />
+    <Compile Include="vJoy\Vcontroller.cs" />
+    <Compile Include="vJoy\VjoyButton.cs" />
     <Compile Include="Wrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
