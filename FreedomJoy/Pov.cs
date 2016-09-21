@@ -53,7 +53,6 @@ namespace FreedomJoy
                         parentController: _parentController,
                         buttonNumber: _parentController.Buttons.Count + 1,
                         onValue: (36000 / numNewButtons) * i,
-                        offValue: -1,
                         povParent: this
                     );
                     _parentController.Buttons.Add(newButton);

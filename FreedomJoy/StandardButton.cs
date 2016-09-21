@@ -11,10 +11,9 @@
             }
         }
 
-        public StandardButton(Controller parentController, int buttonNumber)
+        public StandardButton(Controller parentController, int buttonNumber) : base(parentController, buttonNumber)
         {
-            ParentController = parentController;
-            ButtonNumber = buttonNumber;
+
         }
     }
 }

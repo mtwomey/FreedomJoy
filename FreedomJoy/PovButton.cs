@@ -9,7 +9,6 @@
         }
 
         private readonly int _onValue;
-        private readonly int _offValue;
         private readonly Pov _povParent;
         public override bool State
         {
@@ -20,12 +19,9 @@
             }
         }
 
-        public PovButton(Controller parentController, int buttonNumber, int onValue, int offValue, Pov povParent = null)
+        public PovButton(Controller parentController, int buttonNumber, int onValue, Pov povParent = null) : base(parentController, buttonNumber)
         {
-            ParentController = parentController;
-            ButtonNumber = buttonNumber;
             _onValue = onValue;
-            _offValue = offValue;
             _povParent = povParent;
         }
     }
