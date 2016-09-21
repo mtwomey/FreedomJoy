@@ -126,11 +126,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Button\Button.cs" />
-    <Compile Include="Button\PovButton.cs" />
-    <Compile Include="Button\StandardButton.cs" />
+    <Compile Include="Controller\Button.cs" />
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="Controller\ControllerMaps.cs" />
+    <Compile Include="Controller\Pov.cs" />
+    <Compile Include="Controller\PovButton.cs" />
+    <Compile Include="Controller\StandardButton.cs" />
     <Compile Include="Mapping\Condition.cs" />
     <Compile Include="Mapping\ICondition.cs" />
     <Compile Include="Mapping\IMapping.cs" />
@@ -139,13 +140,13 @@
     <Compile Include="Mapping\SimpleButtonMapping.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="vJoy\Pov.cs" />
     <Compile Include="vJoy\Vcontroller.cs" />
     <Compile Include="vJoy\VjoyButton.cs" />
     <Compile Include="Wrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="docs\API_C#_2.1.6.20.pdf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
