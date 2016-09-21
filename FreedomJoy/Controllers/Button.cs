@@ -1,4 +1,4 @@
-﻿namespace FreedomJoy
+﻿namespace FreedomJoy.Controllers
 {
     public abstract class Button
     {

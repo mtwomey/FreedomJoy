@@ -1,4 +1,4 @@
-﻿namespace FreedomJoy
+﻿namespace FreedomJoy.vJoy
 {
     class VjoyButton
     {
@@ -26,6 +26,7 @@
         {
             _parentVcontroller = parentVcontroller;
             ButtonNumber = buttonNumber;
+            State = false;
         }
     }
 }

@@ -1,30 +1,26 @@
-﻿// Note - GetVJDStatus causes occasional crashes. I think it's bugged. I see it when I'm running console app repeatedly...
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using vJoyInterfaceWrap;
 
-
-namespace FreedomJoy
+namespace FreedomJoy.vJoy
 {
     class Vcontroller
     {
 
-        public vJoy Vjoy;
+        public vJoyInterfaceWrap.vJoy Vjoy;
         private readonly uint _vJoyNumber;
         private readonly int _buttonCount;
-        private readonly int _discPovCount;
-        public vJoy.JoystickState JoystickState; // Doesn't work as a property becase it's a struct
+        public vJoyInterfaceWrap.vJoy.JoystickState JoystickState; // Doesn't work as a property becase it's a struct
         public List<VjoyButton> Buttons { get; } = new List<VjoyButton>();
+        public List<VjoyAxis> Axes { get; } = new List<VjoyAxis>();
+        public Dictionary<string, VjoyAxis> AxesByName = new Dictionary<string, VjoyAxis>();
         public int UpdateRate { get; set; }
 
         public Vcontroller(uint vJoyNumber, int updateRate = 20)
         {
             _vJoyNumber = vJoyNumber;
-            Vjoy = new vJoy();
-            JoystickState = new vJoy.JoystickState();
-            VjdStat status;
-            status = Vjoy.GetVJDStatus(_vJoyNumber);
+            Vjoy = new vJoyInterfaceWrap.vJoy();
+            JoystickState = new vJoyInterfaceWrap.vJoy.JoystickState();
+            VjdStat status = Vjoy.GetVJDStatus(_vJoyNumber);
             if (status == VjdStat.VJD_STAT_OWN || status == VjdStat.VJD_STAT_FREE)
             {
                 Vjoy.AcquireVJD(_vJoyNumber);
@@ -35,9 +31,9 @@ namespace FreedomJoy
             }
             Vjoy.ResetVJD(_vJoyNumber);
             _buttonCount = Vjoy.GetVJDButtonNumber(_vJoyNumber);
-            _discPovCount = Vjoy.GetVJDDiscPovNumber(vJoyNumber);
             _initButtons();
             _initDiscPovs();
+            _initAxes();
             _initJoystickState();
             UpdateRate = updateRate;
         }
@@ -50,9 +46,9 @@ namespace FreedomJoy
         private void _initJoystickState()
         {
             JoystickState.bDevice = (byte)_vJoyNumber;
-            JoystickState.AxisX = 16000; // Range is 0 - 32k (or maybe starts at 1 - see: http://vjoystick.sourceforge.net/joomla256.02/index.php/forum/4-Help/989-unexpected-value-range-on-axes)
-            JoystickState.AxisY = 16000;
-            JoystickState.AxisZ = 16000;
+//            JoystickState.AxisX = 16000; // Range is 0 - 32k (or maybe starts at 1 - see: http://vjoystick.sourceforge.net/joomla256.02/index.php/forum/4-Help/989-unexpected-value-range-on-axes)
+//            JoystickState.AxisY = 16000;
+//            JoystickState.AxisZ = 16000;
         }
         public void Close()
         {
@@ -60,10 +56,28 @@ namespace FreedomJoy
             Vjoy.RelinquishVJD(_vJoyNumber);
         }
 
-        private void _initDiscPovs()
+        private void _initDiscPovs() // Need to implement this later
         {
             
         }
+
+        private void _initAxes()
+        {
+            foreach (string axisName in Enum.GetNames(typeof(HID_USAGES))) // This Enum crap was a PITA
+            {
+                HID_USAGES axis = (HID_USAGES)Enum.Parse(typeof(HID_USAGES), axisName);
+                if (Vjoy.GetVJDAxisExist(_vJoyNumber, axis))
+                {
+                    VjoyAxis vjoyAxis = new VjoyAxis(
+                        parentVcontroller: this,
+                        name: axisName.Replace("HID_USAGE_", "").ToLower()
+                    );
+                    Axes.Add(vjoyAxis);
+                    AxesByName.Add(axisName, vjoyAxis);
+                }
+            }
+        }
+
         private void _initButtons()
         {
             for (int i = 0; i < _buttonCount; i++)

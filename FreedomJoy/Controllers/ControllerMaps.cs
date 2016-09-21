@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FreedomJoy
+namespace FreedomJoy.Controllers
 {
     class ControllerMaps
     {

@@ -1,4 +1,7 @@
-﻿namespace FreedomJoy
+﻿using FreedomJoy.Controllers;
+using FreedomJoy.vJoy;
+
+namespace FreedomJoy
 {
     class SimpleButtonMapping : IMapping
     {

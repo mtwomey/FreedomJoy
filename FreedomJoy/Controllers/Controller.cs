@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using SlimDX.DirectInput;
-using SlimDX.XAudio2;
 
-namespace FreedomJoy
+namespace FreedomJoy.Controllers
 {
     public class Controller : IDisposable
     {

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using FreedomJoy.Controllers;
+using FreedomJoy.vJoy;
 using SlimDX.DirectInput;
 
 
