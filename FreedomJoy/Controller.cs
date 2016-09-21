@@ -12,7 +12,7 @@ namespace FreedomJoy
         private readonly int _povCount;
         private DirectInput _dinput; // Not really sure if I need to hang on to this for closing or if I can dispose of it after I get the joystick...
         public JoystickState JoystickState { get; set; }
-        public List<Button> Buttons { get; } = new List<Button>();
+        public List<IButton> Buttons { get; } = new List<IButton>();
         public List< Pov> Povs { get; }= new List<Pov>();
 
         public Controller(int controllerNumber)

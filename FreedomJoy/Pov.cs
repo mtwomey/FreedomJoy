@@ -13,7 +13,7 @@ namespace FreedomJoy
 
         private PovType _type;
         private readonly Controller _parentController;
-        private readonly List<Button> _buttonRefs = new List<Button>();
+        private readonly List<IButton> _buttonRefs = new List<IButton>();
         public int PovNumber { get; set; }
         public int Value
         {
@@ -50,7 +50,6 @@ namespace FreedomJoy
                 {
                     PovButton newButton = new PovButton
                     (
-                        parentController: _parentController,
                         buttonNumber: _parentController.Buttons.Count + 1,
                         onValue: (36000 / numNewButtons) * i,
                         offValue: -1,

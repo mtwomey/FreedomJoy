@@ -1,17 +1,17 @@
 ﻿namespace FreedomJoy
 {
-    public class PovButton : Button
+    public class PovButton : IButton
     {
         public enum ButtonType
         {
             Standard,
             Pov
         }
-
+        public int ButtonNumber { get; set; }
         private readonly int _onValue;
         private readonly int _offValue;
         private readonly Pov _povParent;
-        public override bool State
+        public bool State
         {
             get
             {
@@ -20,9 +20,8 @@
             }
         }
 
-        public PovButton(Controller parentController, int buttonNumber, int onValue, int offValue, Pov povParent = null)
+        public PovButton(int buttonNumber, int onValue, int offValue, Pov povParent = null)
         {
-            ParentController = parentController;
             ButtonNumber = buttonNumber;
             _onValue = onValue;
             _offValue = offValue;

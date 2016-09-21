@@ -126,7 +126,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Button.cs" />
+    <Compile Include="IButton.cs" />
     <Compile Include="PovButton.cs" />
     <Compile Include="StandardButton.cs" />
     <Compile Include="Condition.cs" />

@@ -1,19 +1,21 @@
 ﻿namespace FreedomJoy
 {
-    public class StandardButton : Button
+    public class StandardButton : IButton
     {
-        public override bool State
+        public int ButtonNumber { get; set; }
+        private readonly Controller _parentController;
+        public bool State
         {
             get
             {
-                int value = ParentController.JoystickState.GetButtons()[ButtonNumber - 1] ? 1 : 0;
+                int value = _parentController.JoystickState.GetButtons()[ButtonNumber - 1] ? 1 : 0;
                 return (value == 1);
             }
         }
 
         public StandardButton(Controller parentController, int buttonNumber)
         {
-            ParentController = parentController;
+            _parentController = parentController;
             ButtonNumber = buttonNumber;
         }
     }
