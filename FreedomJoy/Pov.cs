@@ -39,7 +39,7 @@ namespace FreedomJoy
                 if (newPovType == PovType.Button8) { numNewButtons = 8; }
 
                 // Remove any old PovButtons from controller and the refs
-                foreach (Button button in _buttonRefs)
+                foreach (StandardButton button in _buttonRefs)
                 {
                     _parentController.Buttons.Remove(button);
                 }
@@ -48,10 +48,9 @@ namespace FreedomJoy
                 // Add new "virtual" pov buttons
                 for (int i = 0; i < numNewButtons; i++)
                 {
-                    Button newButton = new Button
+                    PovButton newButton = new PovButton
                     (
                         parentController: _parentController,
-                        type: Button.ButtonType.Pov,
                         buttonNumber: _parentController.Buttons.Count + 1,
                         onValue: (36000 / numNewButtons) * i,
                         offValue: -1,

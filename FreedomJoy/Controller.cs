@@ -33,12 +33,9 @@ namespace FreedomJoy
         {
             for (int i = 0; i < _standardButtonCount; i++)
             {
-                Button newButton = new Button (
+                StandardButton newButton = new StandardButton (
                     parentController: this,
-                    type: Button.ButtonType.Standard,
-                    buttonNumber: i + 1,
-                    onValue: 1,
-                    offValue: 0
+                    buttonNumber: i + 1
                 );
                 Buttons.Add(newButton);
             }
