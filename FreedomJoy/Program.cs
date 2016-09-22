@@ -106,7 +106,7 @@ namespace FreedomJoy
                 virtualAxis: vcontroller.AxesByName["x"],
                 increaseButtons: new int[] { 0 },
                 decreaseButtons: new int[] { 1 },
-                ratePerSecond: 1600    
+                ratePerSecond: 80000   
             );
             IMapping map07 = new VirtualAxisMapping(
                 controller: controller,
@@ -114,7 +114,7 @@ namespace FreedomJoy
                 virtualAxis: vcontroller.AxesByName["z"],
                 increaseButtons: new int[] { 0 },
                 decreaseButtons: new int[] { 1 },
-                ratePerSecond: 400
+                ratePerSecond: 20000
             );
 
             //            controllerMaps.Add(map03);
