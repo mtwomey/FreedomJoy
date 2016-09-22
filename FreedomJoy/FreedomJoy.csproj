@@ -149,6 +149,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="docs\API_C#_2.1.6.20.pdf" />
+    <None Include="docs\README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
