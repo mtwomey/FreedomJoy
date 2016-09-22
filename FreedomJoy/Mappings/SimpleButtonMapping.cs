@@ -1,7 +1,7 @@
 ﻿using FreedomJoy.Controllers;
 using FreedomJoy.vJoy;
 
-namespace FreedomJoy
+namespace FreedomJoy.Mappings
 {
     class SimpleButtonMapping : IMapping
     {

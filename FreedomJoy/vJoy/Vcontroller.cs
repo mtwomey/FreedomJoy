@@ -73,7 +73,7 @@ namespace FreedomJoy.vJoy
                         name: axisName.Replace("HID_USAGE_", "").ToLower()
                     );
                     Axes.Add(vjoyAxis);
-                    AxesByName.Add(axisName, vjoyAxis);
+                    AxesByName.Add(axisName.Replace("HID_USAGE_", "").ToLower(), vjoyAxis);
                 }
             }
         }

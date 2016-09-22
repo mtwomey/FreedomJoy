@@ -1,6 +1,8 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using FreedomJoy.Controllers;
+using FreedomJoy.Mappings;
 using FreedomJoy.vJoy;
 using SlimDX.DirectInput;
 
@@ -98,9 +100,28 @@ namespace FreedomJoy
                 rapidFireRate: 3000
             );
 
-            controllerMaps.Add(map03);
-            controllerMaps.Add(map04);
-            controllerMaps.Add(map05);
+            IMapping map06 = new VirtualAxisMapping(
+                controller: controller,
+                vcontroller: vcontroller,
+                virtualAxis: vcontroller.AxesByName["x"],
+                increaseButtons: new int[] { 0 },
+                decreaseButtons: new int[] { 1 },
+                ratePerSecond: 1600    
+            );
+            IMapping map07 = new VirtualAxisMapping(
+                controller: controller,
+                vcontroller: vcontroller,
+                virtualAxis: vcontroller.AxesByName["z"],
+                increaseButtons: new int[] { 0 },
+                decreaseButtons: new int[] { 1 },
+                ratePerSecond: 400
+            );
+
+            //            controllerMaps.Add(map03);
+            //            controllerMaps.Add(map04);
+            //            controllerMaps.Add(map05);
+            controllerMaps.Add(map06);
+            controllerMaps.Add(map07);
 
             while (true)
             {
