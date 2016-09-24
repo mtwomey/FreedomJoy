@@ -43,6 +43,7 @@ release schedule:
 | Plan configuration via JSON        | Incomplete           |
 | Implement configuration via JSON   | Incomplete           |
 | **Release 0.1 version!**           | Incomplete           |
+| Implement xInput for xbox360       | Incomplete           |
 | Many more things to come...        | Incomplete           |
 | Design GUI                         | Incomplete           |
 | Impliemnt GUI                      | Incomplete           |
