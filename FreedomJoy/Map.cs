@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FreedomJoy.Controllers;
 using FreedomJoy.Mappings;
 using FreedomJoy.vJoy;
@@ -11,36 +12,51 @@ namespace FreedomJoy
         private readonly Config _config;
         private readonly Dictionary<string, Controller> _controllers;
         private readonly Dictionary<string, Vcontroller> _vcontrollers;
+        private readonly ControllerMaps _controllerMaps = new ControllerMaps();
+        private readonly HashSet<Controller> _activeControllers = new HashSet<Controller>();
+        private readonly HashSet<Vcontroller> _activeVcontrollers = new HashSet<Vcontroller>();
+        private readonly uint _updateRate = 20;
 
         public Map()
         {
             _controllers = new Dictionary<string, Controller>();
             _vcontrollers = new Dictionary<string, Vcontroller>();
             _config = new Config();
-//            _initPhysicalDevices();
-//            _initVjoyDevices();
+            _initPhysicalDevices();
+            _initVjoyDevices();
             _initSimpleButtonMappings();
         }
 
         private void _initPhysicalDevices()
         {
-            foreach (JToken physicalDevice in _config.PhysicalDevices)
+            for (int deviceNumber = 0; deviceNumber < _config.PhysicalDevices.Count(); deviceNumber++)
             {
-                string id = (string) physicalDevice["id"];
-                int systemId = (int) physicalDevice["systemId"];
-//                Controller newController = new Controller(systemId);
-//                _controllers.Add(id, newController);
+                JToken physicalDevice = _config.PhysicalDevices[deviceNumber];
+                Controller controller = ControllerFactory.GetPhysicalController((uint) physicalDevice["systemId"]);
+                _activeControllers.Add(controller);
+
+                for (int povNumber = 0; povNumber < physicalDevice["povs"].Count(); povNumber++)
+                {
+                    JToken pov = physicalDevice["povs"][povNumber];
+                    if ((string) pov["type"] == "button4")
+                    {
+                        controller.PovsByName[(string)pov["name"]].SetType(Pov.PovType.Button4);
+                    }
+                    if ((string)pov["type"] == "button8")
+                    {
+                        controller.PovsByName[(string)pov["name"]].SetType(Pov.PovType.Button8);
+                    }
+                }
             }
         }
 
         private void _initVjoyDevices()
         {
-            foreach (JToken vJoyDevice in _config.VjoyDevices)
+            for (int deviceNumber = 0; deviceNumber < _config.VjoyDevices.Count(); deviceNumber++)
             {
-                string id = (string)vJoyDevice["id"];
-                uint systemId = (uint)vJoyDevice["systemId"];
-//                Vcontroller newVcontroller = new Vcontroller(systemId);
-//                _vcontrollers.Add(id, newVcontroller);
+                JToken vJoyDevice = _config.VjoyDevices[deviceNumber];
+                Vcontroller vcontroller = ControllerFactory.GetvJoyController((uint)vJoyDevice["systemId"]);
+                _activeVcontrollers.Add(vcontroller);
             }
         }
 
@@ -60,8 +76,27 @@ namespace FreedomJoy
                       controller: ControllerFactory.GetPhysicalController(physicalDeviceSystemId),
                       vcontroller: ControllerFactory.GetvJoyController(vJoyDeviceSystemId)
                 );
-                var deleteme = 10;
+                _controllerMaps.Add(newSimpleButtonMapping);
             }
         }
+
+        public void Run()
+        {
+            while (true)
+            {
+                foreach (Controller controller in _activeControllers)
+                {
+                    controller.Update();
+                }
+                _controllerMaps.Update();
+                foreach (Vcontroller vcontroller in _activeVcontrollers)
+                {
+                    vcontroller.Update();
+                }
+
+                System.Threading.Thread.Sleep((int)_updateRate);
+            }
+        }
+
     }
 }

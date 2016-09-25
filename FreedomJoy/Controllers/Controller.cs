@@ -14,6 +14,7 @@ namespace FreedomJoy.Controllers
         public List<Button> Buttons { get; } = new List<Button>();
         public Dictionary<string, Button> ButtonsByName = new Dictionary<string, Button>();
         public List< Pov> Povs { get; }= new List<Pov>();
+        public Dictionary<string, Pov> PovsByName = new Dictionary<string, Pov>();
 
         public Controller(uint controllerNumber)
         {
@@ -50,9 +51,11 @@ namespace FreedomJoy.Controllers
                 Pov newPov = new Pov(
                     parentController: this,
                     type: Pov.PovType.Standard,
+                    name: "pov" + (i + 1),
                     povNumber: i + 1
                 );
                 Povs.Add(newPov);
+                PovsByName.Add("pov" + (i + 1), newPov);
             }
         }
 

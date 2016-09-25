@@ -14,6 +14,7 @@ namespace FreedomJoy.Controllers
         private PovType _type;
         private readonly Controller _parentController;
         private readonly List<Button> _buttonRefs = new List<Button>();
+        private readonly string _name;
         public int PovNumber { get; set; }
         public int Value
         {
@@ -23,10 +24,11 @@ namespace FreedomJoy.Controllers
             }
         }
 
-        public Pov(Controller parentController, PovType type, int povNumber)
+        public Pov(Controller parentController, PovType type, string name, int povNumber)
         {
             _parentController = parentController;
             _type = type;
+            _name = name;
             PovNumber = povNumber;
         }
 
@@ -57,7 +59,24 @@ namespace FreedomJoy.Controllers
                         povParent: this
                     );
                     _parentController.Buttons.Add(newPovButton);
-                    _parentController.ButtonsByName.Add("pov" + (i + 1), newPovButton);
+                    string povName = "pov" + PovNumber;
+                    switch ((36000 / numNewButtons) *i) // There must be a better way...
+                    {
+                        case 0:
+                            povName += "up";
+                            break;
+                        case 9000:
+                            povName += "right";
+                            break;
+                        case 18000:
+                            povName += "down";
+                            break;
+                        case 27000:
+                            povName += "left";
+                            break;
+                    }
+
+                    _parentController.ButtonsByName.Add(povName, newPovButton);
                     _buttonRefs.Add(newPovButton); // Keep a ref so I can remove it later - I don't think I need / want this anymore..
                 }
             }

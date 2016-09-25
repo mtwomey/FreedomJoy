@@ -23,9 +23,13 @@ namespace FreedomJoy.Mappings
         public void Update()
         {
             bool active = true;
-            foreach (string s in _controllerPressedButtons)
+            foreach (string s in _controllerPressedButtons) // Pressed buttons
             {
                 active &= _controller.ButtonsByName[s].State;
+            }
+            foreach (string s in _controllerNotPressedButtons) // Not pressed buttons
+            {
+                active &= !_controller.ButtonsByName[s].State;
             }
 
             foreach (string s in _vJoyPressedButtons)

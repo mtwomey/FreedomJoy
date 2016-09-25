@@ -23,6 +23,7 @@ namespace FreedomJoy
                 //printVjoyStatus();
 
                 Map map = new Map();
+                map.Run();
 //                Config config = new Config();
 
                 PrintControllerInfo();

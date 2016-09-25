@@ -13,22 +13,22 @@ namespace FreedomJoy
         private static Dictionary<uint, Controller> _physicalControllers = new Dictionary<uint, Controller>();
         private static Dictionary<uint, Vcontroller> _vJoyControllers = new Dictionary<uint, Vcontroller>();
 
-        public static Controller GetPhysicalController(uint x)
+        public static Controller GetPhysicalController(uint n)
         {
-            if (!_physicalControllers.ContainsKey(x))
+            if (!_physicalControllers.ContainsKey(n))
             {
-                _physicalControllers.Add(x, new Controller(x));
+                _physicalControllers.Add(n, new Controller(n));
             }
-            return _physicalControllers[x];
+            return _physicalControllers[n];
         }
 
-        public static Vcontroller GetvJoyController(uint x)
+        public static Vcontroller GetvJoyController(uint n)
         {
-            if (!_vJoyControllers.ContainsKey(x))
+            if (!_vJoyControllers.ContainsKey(n))
             {
-                _vJoyControllers.Add(x, new Vcontroller(x));
+                _vJoyControllers.Add(n, new Vcontroller(n));
             }
-            return _vJoyControllers[x];
+            return _vJoyControllers[n];
         }
 
     }
