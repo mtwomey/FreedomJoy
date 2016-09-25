@@ -7,10 +7,11 @@ namespace FreedomJoy.Mappings
     {
         private readonly Controller _controller;
         private readonly Vcontroller _vcontroller;
-        private readonly int[] _controllerPressedButtons;
-        private readonly int[] _vJoyPressedButtons;
+        private readonly string[] _controllerPressedButtons;
+        private readonly string[] _controllerNotPressedButtons;
+        private readonly string[] _vJoyPressedButtons;
 
-        public SimpleButtonMapping(int[] controllerPressedButtons, int[] vJoyPressedButtons, Controller controller, Vcontroller vcontroller)
+        public SimpleButtonMapping(string[] controllerPressedButtons, string[] controllerNotPressedButtons, string[] vJoyPressedButtons, Controller controller, Vcontroller vcontroller)
         {
             _controllerPressedButtons = controllerPressedButtons;
             _vJoyPressedButtons = vJoyPressedButtons;
@@ -21,14 +22,14 @@ namespace FreedomJoy.Mappings
         public void Update()
         {
             bool active = true;
-            foreach (int x in _controllerPressedButtons)
+            foreach (string s in _controllerPressedButtons)
             {
-                active &= _controller.Buttons[x].State;
+                active &= _controller.ButtonsByName[s].State;
             }
 
-            foreach (int x in _vJoyPressedButtons)
+            foreach (string s in _vJoyPressedButtons)
             {
-                _vcontroller.Buttons[x].State = active;
+                _vcontroller.ButtonsByName[s].State = active;
             }
         }
     }

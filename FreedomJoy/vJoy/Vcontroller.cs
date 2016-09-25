@@ -10,7 +10,8 @@ namespace FreedomJoy.vJoy
         private readonly uint _vJoyNumber;
         private readonly int _buttonCount;
         public vJoyInterfaceWrap.vJoy.JoystickState JoystickState; // Doesn't work as a property becase it's a struct
-        public List<VjoyButton> Buttons { get; } = new List<VjoyButton>();
+        public List<VjoyButton> Buttons = new List<VjoyButton>();
+        public Dictionary<string, VjoyButton> ButtonsByName = new Dictionary<string, VjoyButton>();
         public List<VjoyAxis> Axes { get; } = new List<VjoyAxis>();
         public Dictionary<string, VjoyAxis> AxesByName = new Dictionary<string, VjoyAxis>();
         public int UpdateRate { get; set; }
@@ -82,11 +83,13 @@ namespace FreedomJoy.vJoy
         {
             for (int i = 0; i < _buttonCount; i++)
             {
-                VjoyButton vjoyButton = new VjoyButton(
+                VjoyButton newVjoyButton = new VjoyButton(
                     parentVcontroller: this,
+                    name: "b" + (i + 1),
                     buttonNumber: (uint)i + 1 
                 );
-                Buttons.Add(vjoyButton);
+                Buttons.Add(newVjoyButton);
+                ButtonsByName.Add("b" + (i + 1), newVjoyButton);
             }
         }
 

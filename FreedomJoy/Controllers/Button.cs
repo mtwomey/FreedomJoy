@@ -2,7 +2,7 @@
 {
     public abstract class Button
     {
-        public int ButtonNumber { get; set; } // I don't htink I need this since name now...
+        public int ButtonNumber { get; } // Used for getting the button status from the DirectInput object (in StandardButton)
         private readonly string _name;
         public readonly Controller ParentController;
         public abstract bool State { get; }

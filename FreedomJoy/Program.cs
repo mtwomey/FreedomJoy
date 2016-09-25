@@ -81,14 +81,15 @@ namespace FreedomJoy
 
 
             IMapping map03 = new SimpleButtonMapping(
-                controllerPressedButtons: new int[] {1},
-                vJoyPressedButtons: new int[] {11, 12},
+                controllerPressedButtons: new string[] {"b2"},
+                controllerNotPressedButtons: new string[] {},
+                vJoyPressedButtons: new string[] {"b12", "b13"},
                 controller: controller,
                 vcontroller: vcontroller
             );
 
             IMapping map04 = new RapidFireButtonMapping(
-                controllerPressedButtons: new int[] { 2 },
+                controllerPressedButtons: new [] { 2 },
                 vJoyPressedButtons: new int[] { 3 },
                 controller: controller,
                 vcontroller: vcontroller,
