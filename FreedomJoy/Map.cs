@@ -28,8 +28,8 @@ namespace FreedomJoy
             {
                 string id = (string) physicalDevice["id"];
                 int systemId = (int) physicalDevice["systemId"];
-                Controller newController = new Controller(systemId);
-                _controllers.Add(id, newController);
+//                Controller newController = new Controller(systemId);
+//                _controllers.Add(id, newController);
             }
         }
 
@@ -39,8 +39,8 @@ namespace FreedomJoy
             {
                 string id = (string)vJoyDevice["id"];
                 uint systemId = (uint)vJoyDevice["systemId"];
-                Vcontroller newVcontroller = new Vcontroller(systemId);
-                _vcontrollers.Add(id, newVcontroller);
+//                Vcontroller newVcontroller = new Vcontroller(systemId);
+//                _vcontrollers.Add(id, newVcontroller);
             }
         }
 

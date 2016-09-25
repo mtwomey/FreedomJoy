@@ -15,10 +15,10 @@ namespace FreedomJoy.Controllers
         public Dictionary<string, Button> ButtonsByName = new Dictionary<string, Button>();
         public List< Pov> Povs { get; }= new List<Pov>();
 
-        public Controller(int controllerNumber)
+        public Controller(uint controllerNumber)
         {
              _dinput = new DirectInput();
-            DeviceInstance di = _dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly)[controllerNumber];
+            DeviceInstance di = _dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly)[(int)controllerNumber];
             _joystick = new Joystick(_dinput, di.InstanceGuid);
             _standardButtonCount = _joystick.Capabilities.ButtonCount;
             _povCount = _joystick.Capabilities.PovCount;

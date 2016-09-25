@@ -72,10 +72,10 @@ namespace FreedomJoy
         }
 
 
-        static void MappingLoopTest02(int controllerId, uint vJoyId)
+        static void MappingLoopTest02(uint controllerId, uint vJoyId)
         {
-            Controller controller = new Controller(controllerId);
-            Vcontroller vcontroller = new Vcontroller(vJoyId);
+            Controller controller = ControllerFactory.GetPhysicalController(controllerId);
+            Vcontroller vcontroller = ControllerFactory.GetvJoyController(vJoyId);
 
             ControllerMaps controllerMaps = new ControllerMaps();
 
@@ -137,13 +137,13 @@ namespace FreedomJoy
 
         }
 
-        static void MappingLoopTest01(int controllerId, uint vJoyId)
+        static void MappingLoopTest01(uint controllerId, uint vJoyId)
         {
             // Setup
-            Controller controller = new Controller(controllerId);
+            Controller controller = ControllerFactory.GetPhysicalController(controllerId);
             controller.ConfigurePov(0, Pov.PovType.Button4); // Make dpad 4 buttons
             Console.WriteLine(controller.Buttons.Count);
-            Vcontroller vJoy = new Vcontroller(vJoyId);
+            Vcontroller vJoy = ControllerFactory.GetvJoyController(vJoyId);
             Console.WriteLine(vJoy.Buttons.Count);
             Console.WriteLine("Test ID: 4");
 

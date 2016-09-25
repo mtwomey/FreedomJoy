@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="ControllerFactory.cs" />
     <Compile Include="Controllers\Button.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\ControllerMaps.cs" />
@@ -154,7 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="config.json" />
     <None Include="docs\API_C#_2.1.6.20.pdf" />
     <None Include="packages.config" />
   </ItemGroup>
