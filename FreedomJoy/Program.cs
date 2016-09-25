@@ -22,6 +22,9 @@ namespace FreedomJoy
                 //MappingLoopTest01();
                 //printVjoyStatus();
 
+//                Map map = new Map();
+//                Config config = new Config();
+
                 PrintControllerInfo();
                 printVjoyStatus(1);
                 MappingLoopTest02(
@@ -117,11 +120,11 @@ namespace FreedomJoy
                 ratePerSecond: 20000
             );
 
-            //            controllerMaps.Add(map03);
-            //            controllerMaps.Add(map04);
-            //            controllerMaps.Add(map05);
-            controllerMaps.Add(map06);
-            controllerMaps.Add(map07);
+                        controllerMaps.Add(map03);
+                        controllerMaps.Add(map04);
+                        controllerMaps.Add(map05);
+//            controllerMaps.Add(map06);
+//            controllerMaps.Add(map07);
 
             while (true)
             {
@@ -260,35 +263,35 @@ namespace FreedomJoy
             vJoy.Close();
         }
 
-        //static void MappingConditions()
-        //{
-        //    Controller controller = new Controller(0);
-        //    controller.ConfigurePov(0, Pov.PovType.Button8);
-        //    controller.ConfigurePov(0, Pov.PovType.Button4);
-        //    while (true)
-        //    {
-        //        controller.Update();
-        //        Mapping mapping = new Mapping(); // A and B pressed, X and Y both NOT pressed
-        //        mapping.Conditions.Add(new Condition(delegate ()
-        //        {
-        //            return (controller.Buttons[0].State == true);
-        //        }));
-        //        mapping.Conditions.Add(new Condition(delegate ()
-        //        {
-        //            return (controller.Buttons[1].State == true);
-        //        }));
-        //        mapping.Conditions.Add(new Condition(delegate ()
-        //        {
-        //            return (controller.Buttons[2].State == false);
-        //        }));
-        //        mapping.Conditions.Add(new Condition(delegate ()
-        //        {
-        //            return (controller.Buttons[3].State == false);
-        //        }));
-        //        Console.WriteLine("Check: " + mapping.State);
-        //        System.Threading.Thread.Sleep(1000);
-        //    }
-        //}
+//        static void MappingConditions()
+//        {
+//            Controller controller = new Controller(0);
+//            controller.ConfigurePov(0, Pov.PovType.Button8);
+//            controller.ConfigurePov(0, Pov.PovType.Button4);
+//            while (true)
+//            {
+//                controller.Update();
+//                Mapping mapping = new Mapping(); // A and B pressed, X and Y both NOT pressed
+//                mapping.Conditions.Add(new Condition(delegate ()
+//                {
+//                    return (controller.Buttons[0].State == true);
+//                }));
+//                mapping.Conditions.Add(new Condition(delegate ()
+//                {
+//                    return (controller.Buttons[1].State == true);
+//                }));
+//                mapping.Conditions.Add(new Condition(delegate ()
+//                {
+//                    return (controller.Buttons[2].State == false);
+//                }));
+//                mapping.Conditions.Add(new Condition(delegate ()
+//                {
+//                    return (controller.Buttons[3].State == false);
+//                }));
+//                Console.WriteLine("Check: " + mapping.State);
+//                System.Threading.Thread.Sleep(1000);
+//            }
+//        }
         static void ButtonReadout()
         {
             Controller controller = new Controller(0);

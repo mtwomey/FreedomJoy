@@ -48,15 +48,17 @@ namespace FreedomJoy.Controllers
                 // Add new "virtual" pov buttons
                 for (int i = 0; i < numNewButtons; i++)
                 {
-                    PovButton newButton = new PovButton
+                    PovButton newPovButton = new PovButton
                     (
                         parentController: _parentController,
+                        name: "pov" + (i+1),
                         buttonNumber: _parentController.Buttons.Count + 1,
                         onValue: (36000 / numNewButtons) * i,
                         povParent: this
                     );
-                    _parentController.Buttons.Add(newButton);
-                    _buttonRefs.Add(newButton); // Keep a ref so I can remove it later
+                    _parentController.Buttons.Add(newPovButton);
+                    _parentController.ButtonsByName.Add("pov" + (i + 1), newPovButton);
+                    _buttonRefs.Add(newPovButton); // Keep a ref so I can remove it later - I don't think I need / want this anymore..
                 }
             }
         }

@@ -107,6 +107,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SlimDX, Version=4.0.11.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\SlimDX.dll</HintPath>
@@ -126,12 +130,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="Controllers\Button.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\ControllerMaps.cs" />
     <Compile Include="Controllers\Pov.cs" />
     <Compile Include="Controllers\PovButton.cs" />
     <Compile Include="Controllers\StandardButton.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Mappings\Condition.cs" />
     <Compile Include="Mappings\ICondition.cs" />
     <Compile Include="Mappings\IMapping.cs" />
@@ -148,8 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="config.json" />
     <None Include="docs\API_C#_2.1.6.20.pdf" />
-    <None Include="docs\README.md" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -19,7 +19,7 @@
             }
         }
 
-        public PovButton(Controller parentController, int buttonNumber, int onValue, Pov povParent = null) : base(parentController, buttonNumber)
+        public PovButton(Controller parentController, string name, int buttonNumber, int onValue, Pov povParent = null) : base(parentController, name, buttonNumber) // Delete this default povParent value ?
         {
             _onValue = onValue;
             _povParent = povParent;

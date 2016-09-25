@@ -1,0 +1,54 @@
+﻿{
+  "physicalDevices": [
+    {
+      "id": 1,
+      "name": "Controller (Xbox 360 Wireless Receiver for Windows)",
+      "systemId": 0,
+      "buttons": [
+        "button1",
+        "button2",
+        "button3",
+        "button4",
+        "button5",
+        "button6",
+        "button7",
+        "button8",
+        "button9",
+        "button10"
+      ]
+    }
+  ],
+  "vJoyDevices": [
+    {
+      "id": 1,
+      "name": "vJoy Device 1",
+      "systemId": 1
+    }
+  ],
+  "mappings": {
+    "simpleButton": [
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "b1", "b2" ],
+          "notButton":  [ "b3", "b4" ] 
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b12", "b13" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "b2" ],
+          "notButtons": [ "b1", "b2" ] 
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b1" ]
+        }
+      }
+    ]
+  }
+}

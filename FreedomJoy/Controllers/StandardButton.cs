@@ -11,7 +11,7 @@
             }
         }
 
-        public StandardButton(Controller parentController, int buttonNumber) : base(parentController, buttonNumber)
+        public StandardButton(Controller parentController, string name, int buttonNumber) : base(parentController, name, buttonNumber)
         {
 
         }

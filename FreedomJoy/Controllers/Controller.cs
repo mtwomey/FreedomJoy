@@ -12,6 +12,7 @@ namespace FreedomJoy.Controllers
         private DirectInput _dinput; // Not really sure if I need to hang on to this for closing or if I can dispose of it after I get the joystick...
         public JoystickState JoystickState { get; set; }
         public List<Button> Buttons { get; } = new List<Button>();
+        public Dictionary<string, Button> ButtonsByName = new Dictionary<string, Button>();
         public List< Pov> Povs { get; }= new List<Pov>();
 
         public Controller(int controllerNumber)
@@ -34,9 +35,11 @@ namespace FreedomJoy.Controllers
             {
                 StandardButton newButton = new StandardButton (
                     parentController: this,
+                    name: "b" + (i + 1),
                     buttonNumber: i + 1
                 );
                 Buttons.Add(newButton);
+                ButtonsByName.Add("b" + (i + 1), newButton);
             }
         }
 
