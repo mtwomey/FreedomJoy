@@ -17,8 +17,8 @@ namespace FreedomJoy
             _controllers = new Dictionary<string, Controller>();
             _vcontrollers = new Dictionary<string, Vcontroller>();
             _config = new Config();
-            _initPhysicalDevices();
-            _initVjoyDevices();
+//            _initPhysicalDevices();
+//            _initVjoyDevices();
             _initSimpleButtonMappings();
         }
 
@@ -46,11 +46,21 @@ namespace FreedomJoy
 
         private void _initSimpleButtonMappings()
         {
-            foreach (JToken map in _config.MappingsSimpleButton)
+            foreach (JToken mapping in _config.MappingsSimpleButton)
             {
-//                SimpleButtonMapping simpleButtonMapping = new SimpleButtonMapping(
-//                    
-//                );
+                var requestedPhysicalDevice = (uint)mapping["physicalDevice"]["id"];
+                var physicalDeviceSystemId = _config.PhysicalDevices.SelectToken("[?(@.id == " + requestedPhysicalDevice + ")]")["systemId"].ToObject<uint>(); // Holy shit I miss javascript...
+                var requestedVjoyDevice = (uint)mapping["vJoyDevice"]["id"];
+                var vJoyDeviceSystemId = _config.VjoyDevices.SelectToken("[?(@.id == " + requestedVjoyDevice + ")]")["systemId"].ToObject<uint>();
+
+                SimpleButtonMapping newSimpleButtonMapping = new SimpleButtonMapping(
+                      controllerPressedButtons: mapping["physicalDevice"]["buttons"].ToObject<string[]>(),
+                      controllerNotPressedButtons: mapping["physicalDevice"]["notButtons"].ToObject<string[]>(),
+                      vJoyPressedButtons: mapping["vJoyDevice"]["buttons"].ToObject<string[]>(),
+                      controller: ControllerFactory.GetPhysicalController(physicalDeviceSystemId),
+                      vcontroller: ControllerFactory.GetvJoyController(vJoyDeviceSystemId)
+                );
+                var deleteme = 10;
             }
         }
     }

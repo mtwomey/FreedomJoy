@@ -14,6 +14,7 @@ namespace FreedomJoy.Mappings
         public SimpleButtonMapping(string[] controllerPressedButtons, string[] controllerNotPressedButtons, string[] vJoyPressedButtons, Controller controller, Vcontroller vcontroller)
         {
             _controllerPressedButtons = controllerPressedButtons;
+            _controllerNotPressedButtons = controllerNotPressedButtons;
             _vJoyPressedButtons = vJoyPressedButtons;
             _controller = controller;
             _vcontroller = vcontroller;

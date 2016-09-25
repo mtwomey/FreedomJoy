@@ -22,7 +22,7 @@ namespace FreedomJoy
                 //MappingLoopTest01();
                 //printVjoyStatus();
 
-//                Map map = new Map();
+                Map map = new Map();
 //                Config config = new Config();
 
                 PrintControllerInfo();

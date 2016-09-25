@@ -31,7 +31,7 @@
         "physicalDevice": {
           "id": 1,
           "buttons": [ "b1", "b2" ],
-          "notButton":  [ "b3", "b4" ] 
+          "notButtons":  [ "b3", "b4" ] 
         },
         "vJoyDevice": {
           "id": 1,
