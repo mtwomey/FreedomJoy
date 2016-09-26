@@ -25,13 +25,13 @@ namespace FreedomJoy
                 Map map = new Map();
                 map.Run();
 //                Config config = new Config();
-
-                PrintControllerInfo();
-                printVjoyStatus(1);
-                MappingLoopTest02(
-                    controllerId: 0,
-                    vJoyId: 1    
-                );
+//
+//                PrintControllerInfo();
+//                printVjoyStatus(1);
+//                MappingLoopTest02(
+//                    controllerId: 0,
+//                    vJoyId: 1    
+//                );
 
 
             }
@@ -105,22 +105,22 @@ namespace FreedomJoy
                 rapidFireRate: 3000
             );
 
-            IMapping map06 = new VirtualAxisMapping(
-                controller: controller,
-                vcontroller: vcontroller,
-                virtualAxis: vcontroller.AxesByName["x"],
-                increaseButtons: new int[] { 0 },
-                decreaseButtons: new int[] { 1 },
-                ratePerSecond: 80000   
-            );
-            IMapping map07 = new VirtualAxisMapping(
-                controller: controller,
-                vcontroller: vcontroller,
-                virtualAxis: vcontroller.AxesByName["z"],
-                increaseButtons: new int[] { 0 },
-                decreaseButtons: new int[] { 1 },
-                ratePerSecond: 20000
-            );
+//            IMapping map06 = new VirtualAxisMapping(
+//                controller: controller,
+//                vcontroller: vcontroller,
+//                virtualAxis: vcontroller.AxesByName["x"],
+//                increaseButtons: new int[] { 0 },
+//                decreaseButtons: new int[] { 1 },
+//                ratePerSecond: 80000   
+//            );
+//            IMapping map07 = new VirtualAxisMapping(
+//                controller: controller,
+//                vcontroller: vcontroller,
+//                virtualAxis: vcontroller.AxesByName["z"],
+//                increaseButtons: new int[] { 0 },
+//                decreaseButtons: new int[] { 1 },
+//                ratePerSecond: 20000
+//            );
 
                         controllerMaps.Add(map03);
                         controllerMaps.Add(map04);

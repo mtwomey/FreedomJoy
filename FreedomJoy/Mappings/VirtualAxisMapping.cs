@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Windows.Forms.VisualStyles;
 using FreedomJoy.Controllers;
 using FreedomJoy.vJoy;
 
@@ -8,20 +9,24 @@ namespace FreedomJoy.Mappings
     {
         private readonly Controller _controller;
         private readonly Vcontroller _vcontroller;
-        private readonly int[] _decreaseButtons;
-        private readonly int[] _increaseButtons;
+        private readonly string[] _decreaseButtons;
+        private readonly string[] _decreaseNotButtons;
+        private readonly string[] _increaseButtons;
+        private readonly string[] _increaseNotButtons;
         private readonly int _ratePerSecond;
         private readonly VjoyAxis _virtualAxis;
         private int _accelTicks;
         private int _decelTicks;
 
-        public VirtualAxisMapping(Controller controller, Vcontroller vcontroller, VjoyAxis virtualAxis, int[] increaseButtons, int[] decreaseButtons, int ratePerSecond)
+        public VirtualAxisMapping(Controller controller, Vcontroller vcontroller, VjoyAxis virtualAxis, string[] increaseButtons, string[] increaseNotButtons, string[] decreaseButtons, string[] decreaseNotButtons, int ratePerSecond)
         {
             _controller = controller;
             _vcontroller = vcontroller;
             _virtualAxis = virtualAxis;
             _increaseButtons = increaseButtons;
+            _increaseNotButtons = increaseNotButtons;
             _decreaseButtons = decreaseButtons;
+            _decreaseNotButtons = decreaseNotButtons;
             _ratePerSecond = ratePerSecond;
 
         }
@@ -37,7 +42,8 @@ namespace FreedomJoy.Mappings
             double divisor;
             int changeRate = _ratePerSecond / (1000 / _vcontroller.UpdateRate); // Rate per second is approximate due to int and also acceleration
 
-            bool active = _increaseButtons.Aggregate(true, (current, x) => current & _controller.Buttons[x].State); // Active if all the buttons are pressed (usually it will be just one button, unless you're using a shift button)
+            bool active = _increaseButtons.Aggregate(true, (current, x) => current & _controller.ButtonsByName[x].State); // Active if all the buttons are pressed (usually it will be just one button, unless you're using a shift button)
+            active = _increaseNotButtons.Aggregate(active, (current, x) => current & !_controller.ButtonsByName[x].State);
             if (active)
             {
                 _accelTicks++;
@@ -48,7 +54,8 @@ namespace FreedomJoy.Mappings
                 if (_virtualAxis.State > 32768) { _virtualAxis.State = 32768; }
             } else { _accelTicks = 0; }
 
-            active = _decreaseButtons.Aggregate(true, (current, x) => current & _controller.Buttons[x].State);
+            active = _decreaseButtons.Aggregate(true, (current, x) => current & _controller.ButtonsByName[x].State);
+            active = _decreaseNotButtons.Aggregate(active, (current, x) => current & !_controller.ButtonsByName[x].State);
             if (active)
             {
                 _decelTicks++;

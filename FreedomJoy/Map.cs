@@ -26,6 +26,7 @@ namespace FreedomJoy
             _initPhysicalDevices();
             _initVjoyDevices();
             _initSimpleButtonMappings();
+            _initVirtualAxisMappings();
         }
 
         private void _initPhysicalDevices()
@@ -66,9 +67,9 @@ namespace FreedomJoy
             foreach (JToken mapping in _config.MappingsSimpleButton)
             {
                 var requestedPhysicalDevice = (uint)mapping["physicalDevice"]["id"];
-                var physicalDeviceSystemId = _config.PhysicalDevices.SelectToken("[?(@.id == " + requestedPhysicalDevice + ")]")["systemId"].ToObject<uint>(); // Holy shit I miss javascript...
+                var physicalDeviceSystemId = _config.GetPhysicalDeviceSystemIdFromId(requestedPhysicalDevice);
                 var requestedVjoyDevice = (uint)mapping["vJoyDevice"]["id"];
-                var vJoyDeviceSystemId = _config.VjoyDevices.SelectToken("[?(@.id == " + requestedVjoyDevice + ")]")["systemId"].ToObject<uint>();
+                var vJoyDeviceSystemId = _config.GetVjoyDeviceSystemIdFromId(requestedVjoyDevice);
 
                 SimpleButtonMapping newSimpleButtonMapping = new SimpleButtonMapping(
                       controllerPressedButtons: mapping["physicalDevice"]["buttons"].ToObject<string[]>(),
@@ -78,6 +79,30 @@ namespace FreedomJoy
                       vcontroller: ControllerFactory.GetvJoyController(vJoyDeviceSystemId)
                 );
                 _controllerMaps.Add(newSimpleButtonMapping);
+            }
+        }
+
+        private void _initVirtualAxisMappings()
+        {
+            foreach (JToken mapping in _config.MappingsVirtualAxis)
+            {
+                var requestedPhysicalDevice = (uint)mapping["physicalDevice"]["id"];
+                var physicalDevice = ControllerFactory.GetPhysicalController(_config.GetPhysicalDeviceSystemIdFromId(requestedPhysicalDevice));
+                var requestedVjoyDevice = (uint)mapping["vJoyDevice"]["id"];
+                var vJoyDevice = ControllerFactory.GetvJoyController(_config.GetVjoyDeviceSystemIdFromId(requestedVjoyDevice));
+
+                VirtualAxisMapping newVirtualAxisMapping = new VirtualAxisMapping(
+                    increaseButtons: mapping["physicalDevice"]["increaseButtons"].ToObject<string[]>(),
+                    increaseNotButtons: mapping["physicalDevice"]["increaseNotButtons"].ToObject<string[]>(),
+                    decreaseButtons: mapping["physicalDevice"]["decreaseButtons"].ToObject<string[]>(),
+                    decreaseNotButtons: mapping["physicalDevice"]["decreaseNotButtons"].ToObject<string[]>(),
+                    controller: physicalDevice,
+                    vcontroller: vJoyDevice,
+                    ratePerSecond: (int)mapping["settings"]["ratePerSecond"],
+                    virtualAxis: vJoyDevice.AxesByName[(string)mapping["vJoyDevice"]["axis"]]
+                );
+                var x = 10;
+                _controllerMaps.Add(newVirtualAxisMapping);
             }
         }
 

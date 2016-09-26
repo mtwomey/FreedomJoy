@@ -12,6 +12,7 @@ namespace FreedomJoy
     {
         private readonly JToken _config;
         public readonly JToken MappingsSimpleButton;
+        public readonly JToken MappingsVirtualAxis;
         public readonly JToken PhysicalDevices;
         public readonly JToken VjoyDevices;
         public Config()
@@ -23,11 +24,16 @@ namespace FreedomJoy
             PhysicalDevices = _config["physicalDevices"];
             VjoyDevices = _config["vJoyDevices"];
             MappingsSimpleButton = _config["mappings"]["simpleButton"];
-            foreach (JToken map in MappingsSimpleButton)
-            {
-                int x = 10;
-            }
-            int stophere = 10;
+            MappingsVirtualAxis = _config["mappings"]["virtualAxis"];
+        }
+
+        public uint GetPhysicalDeviceSystemIdFromId(uint id)
+        {
+            return  PhysicalDevices.SelectToken("[?(@.id == " + id + ")]")["systemId"].ToObject<uint>(); // Holy shit I miss javascript...
+        }
+        public uint GetVjoyDeviceSystemIdFromId(uint id)
+        {
+            return VjoyDevices.SelectToken("[?(@.id == " + id + ")]")["systemId"].ToObject<uint>();
         }
     }
 }

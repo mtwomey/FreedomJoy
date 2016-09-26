@@ -52,6 +52,40 @@
     }
   ],
   "mappings": {
+    "virtualAxis": [
+      {
+        "physicalDevice": {
+          "id": 1,
+          "increaseButtons": [ "pov1left", "b2" ],
+          "increaseNotButtons": [ "b4" ],
+          "decreaseButtons": [ "pov1left", "b1" ],
+          "decreaseNotButtons": [ "b4" ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "axis": "x"
+        },
+        "settings": {
+          "ratePerSecond": 80000
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "increaseButtons": [ "pov1right", "b2" ],
+          "increaseNotButtons": [ "b4" ],
+          "decreaseButtons": [ "pov1right", "b1" ],
+          "decreaseNotButtons": [ "b4" ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "axis": "y"
+        },
+        "settings": {
+          "ratePerSecond": 80000
+        }
+      }
+    ], 
     "simpleButton": [
       {
         "physicalDevice": {
