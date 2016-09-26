@@ -17,7 +17,7 @@
                 }
                 else
                 {
-                    _parentVcontroller.JoystickState.Buttons &= ~(uint)1 << (int)(_buttonNumber - 1);
+                    _parentVcontroller.JoystickState.Buttons &= ~((uint)1 << (int)(_buttonNumber - 1));
                 }
                 _state = value;
             }
