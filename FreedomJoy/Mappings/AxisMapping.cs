@@ -20,7 +20,7 @@ namespace FreedomJoy.Mappings
 
         public void Update()
         {
-            _vJoyAxis.Value = _physicalAxes.Value / 2; // Xbox controller is 0 - 64k, vjoy is 0 - 32k, need to figure out a standard way compatible with everything
+            _vJoyAxis.Value = _physicalAxes.Value; // Range is the same for both becase we set the controller range to 1 - 32768 in the constructor to match vJoy
         }
     }
 }

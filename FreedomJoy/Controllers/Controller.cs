@@ -24,6 +24,7 @@ namespace FreedomJoy.Controllers
              _dinput = new DirectInput();
             DeviceInstance di = _dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly)[(int)controllerNumber];
             _joystick = new Joystick(_dinput, di.InstanceGuid);
+            _joystick.Properties.SetRange(1, 32768); // Match vJoy
             _standardButtonCount = _joystick.Capabilities.ButtonCount;
             _axisCount = _joystick.Capabilities.AxesCount;
             _povCount = _joystick.Capabilities.PovCount;
