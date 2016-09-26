@@ -10,7 +10,7 @@ namespace FreedomJoy
         private Action _trueAction;
         private Action _falseAction;
 
-        public bool State // Debating whether I should name this "State"...
+        public bool State // Debating whether I should name this "Value"...
         {
             get // Return true if all Conditions are true
             {

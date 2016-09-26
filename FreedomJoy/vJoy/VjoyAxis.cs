@@ -4,39 +4,39 @@
     {
         private readonly Vcontroller _parentVcontroller;
         private readonly string _name;
-        private int _state;
+        private int _value;
 
-        public int State
+        public int Value
         {
-            get { return _state; }
+            get { return _value; }
             set
             {
                 // This way is much faster than boxing / unboxing the struct to use GetField() and SetValue() (or using __makeref with TypedReference to do it)
                 switch (_name)
                 {
                     case "x":
-                        _parentVcontroller.JoystickState.AxisX = _state = value;
+                        _parentVcontroller.JoystickState.AxisX = _value = value;
                         break;
                     case "y":
-                        _parentVcontroller.JoystickState.AxisY = _state = value;
+                        _parentVcontroller.JoystickState.AxisY = _value = value;
                         break;
                     case "z":
-                        _parentVcontroller.JoystickState.AxisZ = _state = value;
+                        _parentVcontroller.JoystickState.AxisZ = _value = value;
                         break;
                     case "rx":
-                        _parentVcontroller.JoystickState.AxisXRot = _state = value;
+                        _parentVcontroller.JoystickState.AxisXRot = _value = value;
                         break;
                     case "ry":
-                        _parentVcontroller.JoystickState.AxisYRot = _state = value;
+                        _parentVcontroller.JoystickState.AxisYRot = _value = value;
                         break;
                     case "rz":
-                        _parentVcontroller.JoystickState.AxisZRot = _state = value;
+                        _parentVcontroller.JoystickState.AxisZRot = _value = value;
                         break;
                     case "sl0":
-                        _parentVcontroller.JoystickState.Slider = _state = value;
+                        _parentVcontroller.JoystickState.Slider = _value = value;
                         break;
                     case "sl1":
-                        _parentVcontroller.JoystickState.Dial = _state = value;
+                        _parentVcontroller.JoystickState.Dial = _value = value;
                         break;
 
                 }
@@ -47,7 +47,7 @@
         {
             _parentVcontroller = parentVcontroller;
             _name = name;
-            State = 16000;
+            Value = 16000;
         }
     }
 }

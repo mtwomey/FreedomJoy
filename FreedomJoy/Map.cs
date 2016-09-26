@@ -27,6 +27,7 @@ namespace FreedomJoy
             _initVjoyDevices();
             _initSimpleButtonMappings();
             _initVirtualAxisMappings();
+            _initAxisMappings();
         }
 
         private void _initPhysicalDevices()
@@ -101,8 +102,26 @@ namespace FreedomJoy
                     ratePerSecond: (int)mapping["settings"]["ratePerSecond"],
                     virtualAxis: vJoyDevice.AxesByName[(string)mapping["vJoyDevice"]["axis"]]
                 );
-                var x = 10;
                 _controllerMaps.Add(newVirtualAxisMapping);
+            }
+        }
+
+        private void _initAxisMappings()
+        {
+            foreach (JToken mapping in _config.MappingsAxis)
+            {
+                var requestedPhysicalDevice = (uint)mapping["physicalDevice"]["id"];
+                var physicalDevice = ControllerFactory.GetPhysicalController(_config.GetPhysicalDeviceSystemIdFromId(requestedPhysicalDevice));
+                var requestedVjoyDevice = (uint)mapping["vJoyDevice"]["id"];
+                var vJoyDevice = ControllerFactory.GetvJoyController(_config.GetVjoyDeviceSystemIdFromId(requestedVjoyDevice));
+
+                AxisMapping newAxisMapping = new AxisMapping(
+                    physicalAxis: (string)mapping["physicalDevice"]["axis"],
+                    vjoyAxis: (string)mapping["vJoyDevice"]["axis"],
+                    controller: physicalDevice,
+                    vcontroller: vJoyDevice
+                );
+                _controllerMaps.Add(newAxisMapping);
             }
         }
 

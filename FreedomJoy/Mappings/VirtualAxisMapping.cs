@@ -50,8 +50,8 @@ namespace FreedomJoy.Mappings
                 divisor = -0.05*(_accelTicks*_vcontroller.UpdateRate) + 14; // Acceleration curve - calc'd this here: http://www.analyzemath.com/parabola/three_points_para_calc.html using (240,2) (160,6) (80,10) as inputs
                 if (divisor < 1) { divisor = 1; }
 
-                _virtualAxis.State += changeRate / (int)divisor;
-                if (_virtualAxis.State > 32768) { _virtualAxis.State = 32768; }
+                _virtualAxis.Value += changeRate / (int)divisor;
+                if (_virtualAxis.Value > 32768) { _virtualAxis.Value = 32768; }
             } else { _accelTicks = 0; }
 
             active = _decreaseButtons.Aggregate(true, (current, x) => current & _controller.ButtonsByName[x].State);
@@ -62,8 +62,8 @@ namespace FreedomJoy.Mappings
                 divisor = -0.05 * (_decelTicks * _vcontroller.UpdateRate) + 14;
                 if (divisor < 1) { divisor = 1; }
 
-                _virtualAxis.State -= changeRate / (int)divisor;
-                if (_virtualAxis.State < 1) { _virtualAxis.State = 1; }
+                _virtualAxis.Value -= changeRate / (int)divisor;
+                if (_virtualAxis.Value < 1) { _virtualAxis.Value = 1; }
             } else { _decelTicks = 0; }
         }
     }

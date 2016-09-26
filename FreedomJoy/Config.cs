@@ -13,6 +13,7 @@ namespace FreedomJoy
         private readonly JToken _config;
         public readonly JToken MappingsSimpleButton;
         public readonly JToken MappingsVirtualAxis;
+        public readonly JToken MappingsAxis;
         public readonly JToken PhysicalDevices;
         public readonly JToken VjoyDevices;
         public Config()
@@ -25,6 +26,7 @@ namespace FreedomJoy
             VjoyDevices = _config["vJoyDevices"];
             MappingsSimpleButton = _config["mappings"]["simpleButton"];
             MappingsVirtualAxis = _config["mappings"]["virtualAxis"];
+            MappingsAxis = _config["mappings"]["axis"];
         }
 
         public uint GetPhysicalDeviceSystemIdFromId(uint id)

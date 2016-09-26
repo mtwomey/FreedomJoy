@@ -132,6 +132,7 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="ControllerFactory.cs" />
+    <Compile Include="Controllers\Axis.cs" />
     <Compile Include="Controllers\Button.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\ControllerMaps.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Controllers\PovButton.cs" />
     <Compile Include="Controllers\StandardButton.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="Mappings\AxisMapping.cs" />
     <Compile Include="Mappings\Condition.cs" />
     <Compile Include="Mappings\ICondition.cs" />
     <Compile Include="Mappings\IMapping.cs" />

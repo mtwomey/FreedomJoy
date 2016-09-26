@@ -223,9 +223,9 @@ namespace FreedomJoy
 //
 //            while (true)
 //            {
-//                vJoy.Buttons[3].State = true;
-//                vJoy.Buttons[3].State = false;
-//                vJoy.Buttons[4].State = true;
+//                vJoy.Buttons[3].Value = true;
+//                vJoy.Buttons[3].Value = false;
+//                vJoy.Buttons[4].Value = true;
 //                vJoy.Update();
 //
 //                System.Threading.Thread.Sleep(20);
@@ -247,7 +247,7 @@ namespace FreedomJoy
                 vJoy.Buttons[0].State = controller.Buttons[0].State;
                 System.Threading.Thread.Sleep(20);
 
-                //vJoy.Buttons[0].State = !vJoy.Buttons[0].State;
+                //vJoy.Buttons[0].Value = !vJoy.Buttons[0].Value;
                 //System.Threading.Thread.Sleep(500);
             }
 
@@ -276,21 +276,21 @@ namespace FreedomJoy
 //                Mapping mapping = new Mapping(); // A and B pressed, X and Y both NOT pressed
 //                mapping.Conditions.Add(new Condition(delegate ()
 //                {
-//                    return (controller.Buttons[0].State == true);
+//                    return (controller.Buttons[0].Value == true);
 //                }));
 //                mapping.Conditions.Add(new Condition(delegate ()
 //                {
-//                    return (controller.Buttons[1].State == true);
+//                    return (controller.Buttons[1].Value == true);
 //                }));
 //                mapping.Conditions.Add(new Condition(delegate ()
 //                {
-//                    return (controller.Buttons[2].State == false);
+//                    return (controller.Buttons[2].Value == false);
 //                }));
 //                mapping.Conditions.Add(new Condition(delegate ()
 //                {
-//                    return (controller.Buttons[3].State == false);
+//                    return (controller.Buttons[3].Value == false);
 //                }));
-//                Console.WriteLine("Check: " + mapping.State);
+//                Console.WriteLine("Check: " + mapping.Value);
 //                System.Threading.Thread.Sleep(1000);
 //            }
 //        }
