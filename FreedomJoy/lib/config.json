@@ -57,7 +57,7 @@
         "physicalDevice": {
           "id": 1,
           "buttons": [ "b1" ],
-          "notButtons":  [ "pov1up" ]
+          "notButtons": [ "pov1up", "pov1right", "pov1down", "pov1left" ]
         },
         "vJoyDevice": {
           "id": 1,
@@ -67,12 +67,78 @@
       {
         "physicalDevice": {
           "id": 1,
-          "buttons": [ "b1", "pov1up" ],
-          "notButtons": [  ] 
+          "buttons": [ "b2" ],
+          "notButtons": [ "pov1up", "pov1right", "pov1down", "pov1left" ]
         },
         "vJoyDevice": {
           "id": 1,
           "buttons": [ "b2" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "b3" ],
+          "notButtons": [ "pov1up", "pov1right", "pov1down", "pov1left" ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b3" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "b4" ],
+          "notButtons": [ "pov1up", "pov1right", "pov1down", "pov1left" ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b4" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "b1", "pov1up" ],
+          "notButtons": [ ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b5" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "b2", "pov1up" ],
+          "notButtons": [ ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b6" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "b3", "pov1up" ],
+          "notButtons": [ ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b7" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "b4", "pov1up" ],
+          "notButtons": [ ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b8" ]
         }
       }
     ]
