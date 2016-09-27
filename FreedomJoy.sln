@@ -3,18 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreedomJoy", "FreedomJoy\FreedomJoy.csproj", "{9F7B3D58-1C76-4061-AA32-9B40F424B7EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreedomJoy", "FreedomJoy\FreedomJoy.csproj", "{B2DDC95E-B392-4C52-BEFD-38DA3AF3C468}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Release|x64 = Release|x64
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9F7B3D58-1C76-4061-AA32-9B40F424B7EB}.Debug|x64.ActiveCfg = Debug|x64
-		{9F7B3D58-1C76-4061-AA32-9B40F424B7EB}.Debug|x64.Build.0 = Debug|x64
-		{9F7B3D58-1C76-4061-AA32-9B40F424B7EB}.Release|x64.ActiveCfg = Release|x64
-		{9F7B3D58-1C76-4061-AA32-9B40F424B7EB}.Release|x64.Build.0 = Release|x64
+		{B2DDC95E-B392-4C52-BEFD-38DA3AF3C468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2DDC95E-B392-4C52-BEFD-38DA3AF3C468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2DDC95E-B392-4C52-BEFD-38DA3AF3C468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2DDC95E-B392-4C52-BEFD-38DA3AF3C468}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
