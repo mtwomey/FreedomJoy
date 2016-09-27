@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Windows.Forms.VisualStyles;
 using FreedomJoy.Controllers;
 using FreedomJoy.vJoy;
 

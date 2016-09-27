@@ -11,7 +11,7 @@ namespace FreedomJoy
 {
     class Program
     {
-        static void Main(string[] args)
+        static void OldMain(string[] args)
         {
             //ButtonReadout();
             //MappingConditions();
