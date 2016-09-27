@@ -28,11 +28,13 @@ namespace FreedomJoy
 
         private void ButtonRunMain_Click(object sender, RoutedEventArgs e)
         {
-            new Thread(() => // TODO: Figure out how to do this correctly... needs to die when I kill the program, need to track it somewhere, ...etc
+            Thread mainMapper = new Thread(() => // TODO: Figure out how to do this correctly... need to track it somewhere, ...etc
             {
                 Map map = new Map();
                 map.Run();
-            }).Start();
+            });
+            mainMapper.IsBackground = true;
+            mainMapper.Start();
 
         }
     }
