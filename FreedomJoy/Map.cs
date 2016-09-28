@@ -5,6 +5,7 @@ using FreedomJoy.Controllers;
 using FreedomJoy.Mappings;
 using FreedomJoy.vJoy;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 
 namespace FreedomJoy
 {
@@ -126,10 +127,9 @@ namespace FreedomJoy
             }
         }
 
-        public void Run()
+        public void Run(CancellationToken cancellationToken)
         {
-            _keepRunning = true; // I don't know here, this work by calling stop from outside (from another) thread... how should this be done?
-            while (_keepRunning)
+            while (true)
             {
                 foreach (Controller controller in _activeControllers)
                 {
@@ -140,15 +140,12 @@ namespace FreedomJoy
                 {
                     vcontroller.Update();
                 }
-
-                System.Threading.Thread.Sleep((int)_updateRate);
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
+                Thread.Sleep((int)_updateRate);
             }
         }
-
-        public void Stop()
-        {
-            _keepRunning = false;
-        }
-
     }
 }

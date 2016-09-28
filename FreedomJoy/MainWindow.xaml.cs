@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 using System.Threading;
+using System.Threading.Tasks;
 using FreedomJoy.Annotations;
 
 namespace FreedomJoy
@@ -12,8 +13,8 @@ namespace FreedomJoy
     /// </summary>
     public partial class MainWindow : INotifyPropertyChanged
     {
-        private Thread _mainMapperThread;
-        private bool _mainRunning = false;
+        private CancellationTokenSource _mainMapperTaskTokenSource;
+        private bool _mainMapperTaskRunning = false;
         private SolidColorBrush _indicatorFill;
         private string _runMainButtonText = "Start Main";
 
@@ -48,29 +49,26 @@ namespace FreedomJoy
             InitializeComponent();
             DataContext = this;
             IndicatorFill = RedBrush;
+
         }
 
         private void ButtonRunMain_Click(object sender, RoutedEventArgs e)
         {
-            if (!_mainRunning)
+            if (!_mainMapperTaskRunning)
             {
-                _mainMapperThread =
-                    new Thread(() => // TODO: Figure out how to do this correctly... need to track it somewhere, ...etc
-                    {
-                        _map.Run();
-                    });
-                _mainMapperThread.IsBackground = true;
-                _mainMapperThread.Start();
-                _mainRunning = true;
+                _mainMapperTaskTokenSource = new CancellationTokenSource();
+                Task.Factory.StartNew(() => { _map.Run(_mainMapperTaskTokenSource.Token); });
+
+                _mainMapperTaskRunning = true;
                 IndicatorFill = GreenBrush;
                 RunMainButtonText = "Stop Main";
             }
             else
             {
-                _map.Stop();
+                _mainMapperTaskTokenSource.Cancel();
+                _mainMapperTaskRunning = false;
                 IndicatorFill = RedBrush;
                 RunMainButtonText = "Start Main";
-                _mainRunning = false;
             }
 
         }
