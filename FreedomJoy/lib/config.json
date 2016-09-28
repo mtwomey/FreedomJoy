@@ -69,9 +69,7 @@
         "physicalDevice": {
           "id": 1,
           "increaseButtons": [ "pov1left", "b2" ],
-          "increaseNotButtons": [ ],
-          "decreaseButtons": [ "pov1left", "b1" ],
-          "decreaseNotButtons": [ ]
+          "decreaseButtons": [ "pov1left", "b1" ]
         },
         "vJoyDevice": {
           "id": 1,
@@ -85,9 +83,7 @@
         "physicalDevice": {
           "id": 1,
           "increaseButtons": [ "pov1right", "b2" ],
-          "increaseNotButtons": [ ],
-          "decreaseButtons": [ "pov1right", "b1" ],
-          "decreaseNotButtons": [ ]
+          "decreaseButtons": [ "pov1right", "b1" ]
         },
         "vJoyDevice": {
           "id": 1,
@@ -146,8 +142,7 @@
       {
         "physicalDevice": {
           "id": 1,
-          "buttons": [ "b1", "pov1up" ],
-          "notButtons": [ ]
+          "buttons": [ "b1", "pov1up" ]
         },
         "vJoyDevice": {
           "id": 1,
@@ -157,8 +152,7 @@
       {
         "physicalDevice": {
           "id": 1,
-          "buttons": [ "b2", "pov1up" ],
-          "notButtons": [ ]
+          "buttons": [ "b2", "pov1up" ]
         },
         "vJoyDevice": {
           "id": 1,
@@ -168,8 +162,7 @@
       {
         "physicalDevice": {
           "id": 1,
-          "buttons": [ "b3", "pov1up" ],
-          "notButtons": [ ]
+          "buttons": [ "b3", "pov1up" ]
         },
         "vJoyDevice": {
           "id": 1,
@@ -179,8 +172,7 @@
       {
         "physicalDevice": {
           "id": 1,
-          "buttons": [ "b4", "pov1up" ],
-          "notButtons": [ ]
+          "buttons": [ "b4", "pov1up" ]
         },
         "vJoyDevice": {
           "id": 1,

@@ -65,7 +65,7 @@ namespace FreedomJoy
             }
         }
 
-        private void _initSimpleButtonMappings()
+        private void _initSimpleButtonMappings() // Todo: abstract these _init mapping methods so we're not repeating so much stuff...
         {
             foreach (JToken mapping in _config.MappingsSimpleButton)
             {
@@ -76,7 +76,7 @@ namespace FreedomJoy
 
                 SimpleButtonMapping newSimpleButtonMapping = new SimpleButtonMapping(
                       controllerPressedButtons: mapping["physicalDevice"]["buttons"].ToObject<string[]>(),
-                      controllerNotPressedButtons: mapping["physicalDevice"]["notButtons"].ToObject<string[]>(),
+                      controllerNotPressedButtons: mapping["physicalDevice"]["notButtons"] != null ? mapping["physicalDevice"]["notButtons"].ToObject<string[]>() : new string []{},
                       vJoyPressedButtons: mapping["vJoyDevice"]["buttons"].ToObject<string[]>(),
                       controller: ControllerFactory.GetPhysicalController(physicalDeviceSystemId),
                       vcontroller: ControllerFactory.GetvJoyController(vJoyDeviceSystemId)
@@ -96,9 +96,9 @@ namespace FreedomJoy
 
                 VirtualAxisMapping newVirtualAxisMapping = new VirtualAxisMapping(
                     increaseButtons: mapping["physicalDevice"]["increaseButtons"].ToObject<string[]>(),
-                    increaseNotButtons: mapping["physicalDevice"]["increaseNotButtons"].ToObject<string[]>(),
+                    increaseNotButtons: mapping["physicalDevice"]["increaseNotButtons"] != null ? mapping["physicalDevice"]["increaseNotButtons"].ToObject<string[]>() : new string[] {},
                     decreaseButtons: mapping["physicalDevice"]["decreaseButtons"].ToObject<string[]>(),
-                    decreaseNotButtons: mapping["physicalDevice"]["decreaseNotButtons"].ToObject<string[]>(),
+                    decreaseNotButtons: mapping["physicalDevice"]["decreaseNotButtons"] != null ? mapping["physicalDevice"]["decreaseNotButtons"].ToObject<string[]>() : new string[] {},
                     controller: physicalDevice,
                     vcontroller: vJoyDevice,
                     ratePerSecond: (int)mapping["settings"]["ratePerSecond"],
