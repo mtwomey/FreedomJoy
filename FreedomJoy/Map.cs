@@ -17,6 +17,7 @@ namespace FreedomJoy
         private readonly HashSet<Controller> _activeControllers = new HashSet<Controller>();
         private readonly HashSet<Vcontroller> _activeVcontrollers = new HashSet<Vcontroller>();
         private readonly uint _updateRate = 20;
+        private bool _keepRunning = true;
 
         public Map()
         {
@@ -127,7 +128,8 @@ namespace FreedomJoy
 
         public void Run()
         {
-            while (true)
+            _keepRunning = true; // I don't know here, this work by calling stop from outside (from another) thread... how should this be done?
+            while (_keepRunning)
             {
                 foreach (Controller controller in _activeControllers)
                 {
@@ -141,6 +143,11 @@ namespace FreedomJoy
 
                 System.Threading.Thread.Sleep((int)_updateRate);
             }
+        }
+
+        public void Stop()
+        {
+            _keepRunning = false;
         }
 
     }

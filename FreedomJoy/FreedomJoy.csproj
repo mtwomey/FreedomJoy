@@ -92,6 +92,7 @@
     <Compile Include="ControllerFactory.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="vJoy\Vcontroller.cs" />
     <Compile Include="vJoy\VjoyAxis.cs" />
     <Compile Include="vJoy\VjoyButton.cs" />
