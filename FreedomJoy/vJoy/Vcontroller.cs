@@ -57,7 +57,7 @@ namespace FreedomJoy.vJoy
             Vjoy.RelinquishVJD(_vJoyNumber);
         }
 
-        private void _initDiscPovs() // Need to implement this later
+        private void _initDiscPovs() // TODO: implement this later
         {
             
         }

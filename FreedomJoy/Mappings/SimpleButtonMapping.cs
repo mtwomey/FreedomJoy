@@ -32,7 +32,7 @@ namespace FreedomJoy.Mappings
                 active &= !_controller.ButtonsByName[s].State;
             }
 
-            foreach (string s in _vJoyPressedButtons)
+            foreach (string s in _vJoyPressedButtons) // TODO: For future - the way this works now, it's impossible to map two different combos to the same vJoy button, if a given mapping is true, it maps true. If false, it maps fale - BUT there could be another valid combo mapping true. Could fix this with some kind of matrix: "If any mappings targeting this vJOy button are true, then true; if all are false, then false.
             {
                 _vcontroller.ButtonsByName[s].State = active;
             }

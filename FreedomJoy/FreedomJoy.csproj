@@ -36,7 +36,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
+    <OutputPath>Q:\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -158,13 +158,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="docs\xbox360Controls.md" />
     <Content Include="lib\SlimDX.dll" />
     <Content Include="lib\vJoyInterface.dll" />
     <Content Include="lib\vJoyInterfaceWrap.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Libs Include="lib\**" />
+    <Libs Include="lib\config.json" />
+    <Libs Include="lib\gflags.bat" />
+    <Libs Include="lib\run.bat" />
+    <Libs Include="lib\SlimDX.dll" />
+    <Libs Include="lib\vJoyInterface.dll" />
+    <Libs Include="lib\vJoyInterfaceWrap.dll" />
   </ItemGroup>
   <PropertyGroup>
     <PrepareForRunDependsOn>$(PrepareForRunDependsOn);CopyLibs</PrepareForRunDependsOn>

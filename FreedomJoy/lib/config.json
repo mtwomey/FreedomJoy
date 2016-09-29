@@ -60,7 +60,37 @@
         },
         "vJoyDevice": {
           "id": 1,
-          "axis": "z"
+          "axis": "x"
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "axis": "axis2"
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "axis": "y"
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "axis": "axis4"
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "axis": "rx"
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "axis": "axis5"
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "axis": "ry"
         }
       }
     ], 
@@ -73,7 +103,7 @@
         },
         "vJoyDevice": {
           "id": 1,
-          "axis": "x"
+          "axis": "sl0"
         },
         "settings": {
           "ratePerSecond": 80000
@@ -87,7 +117,7 @@
         },
         "vJoyDevice": {
           "id": 1,
-          "axis": "y"
+          "axis": "sl1"
         },
         "settings": {
           "ratePerSecond": 80000
@@ -142,7 +172,8 @@
       {
         "physicalDevice": {
           "id": 1,
-          "buttons": [ "b1", "pov1up" ]
+          "buttons": [ "b5" ],
+          "notButtons": [ "pov1up", "pov1right", "pov1down", "pov1left" ]
         },
         "vJoyDevice": {
           "id": 1,
@@ -152,7 +183,8 @@
       {
         "physicalDevice": {
           "id": 1,
-          "buttons": [ "b2", "pov1up" ]
+          "buttons": [ "b6" ],
+          "notButtons": [ "pov1up", "pov1right", "pov1down", "pov1left" ]
         },
         "vJoyDevice": {
           "id": 1,
@@ -162,7 +194,8 @@
       {
         "physicalDevice": {
           "id": 1,
-          "buttons": [ "b3", "pov1up" ]
+          "buttons": [ "b7" ],
+          "notButtons": [ "pov1up", "pov1right", "pov1down", "pov1left" ]
         },
         "vJoyDevice": {
           "id": 1,
@@ -172,11 +205,34 @@
       {
         "physicalDevice": {
           "id": 1,
-          "buttons": [ "b4", "pov1up" ]
+          "buttons": [ "b8" ],
+          "notButtons": [ "pov1up", "pov1right", "pov1down", "pov1left" ]
         },
         "vJoyDevice": {
           "id": 1,
           "buttons": [ "b8" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "b9" ],
+          "notButtons": [ "pov1up", "pov1right", "pov1down", "pov1left" ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b9" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "b10" ],
+          "notButtons": [ "pov1up", "pov1right", "pov1down", "pov1left" ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b10" ]
         }
       }
     ]
