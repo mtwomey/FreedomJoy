@@ -234,6 +234,46 @@
           "id": 1,
           "buttons": [ "b10" ]
         }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "pov1down", "b1" ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b19" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "pov1down", "b2" ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b20" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "pov1down", "b3" ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b21" ]
+        }
+      },
+      {
+        "physicalDevice": {
+          "id": 1,
+          "buttons": [ "pov1down", "b4" ]
+        },
+        "vJoyDevice": {
+          "id": 1,
+          "buttons": [ "b22" ]
+        }
       }
     ]
   }
