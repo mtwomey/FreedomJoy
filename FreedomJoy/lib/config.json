@@ -4,6 +4,7 @@
       "id": 1,
       "name": "Controller (Xbox 360 Wireless Receiver for Windows)",
       "systemId": 0,
+      "guid": "ee2a0b80-5cf3-11e6-8001-444553540000",
       "buttons": [
         {
           "name": "button1"
@@ -41,7 +42,7 @@
           "name": "pov1",
           "type": "button4"
         }
-      ] 
+      ]
     }
   ],
   "vJoyDevices": [

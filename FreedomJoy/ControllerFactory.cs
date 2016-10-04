@@ -10,19 +10,20 @@ namespace FreedomJoy
 {
     static class ControllerFactory // Controller singletons...
     {
-        private static Dictionary<uint, Controller> _physicalControllers = new Dictionary<uint, Controller>();
+        private static Dictionary<string, Controller> _physicalControllersByGuid = new Dictionary<string, Controller>();
         private static Dictionary<uint, Vcontroller> _vJoyControllers = new Dictionary<uint, Vcontroller>();
 
-        public static Controller GetPhysicalController(uint n)
+        public static Controller GetPhysicalController(string guid)
         {
-            if (!_physicalControllers.ContainsKey(n))
+            if (!_physicalControllersByGuid.ContainsKey(guid))
             {
-                _physicalControllers.Add(n, new Controller(n));
+                var controller = new Controller(guid.ToString());
+                _physicalControllersByGuid.Add(controller.Guid.ToString(), controller);
             }
-            return _physicalControllers[n];
+            return _physicalControllersByGuid[guid.ToString()];
         }
 
-        public static Vcontroller GetvJoyController(uint n)
+        public static Vcontroller GetvJoyController(uint n) // Todo: Change this (everywhere) to use guid instead of id (like I did for physical controllers)
         {
             if (!_vJoyControllers.ContainsKey(n))
             {

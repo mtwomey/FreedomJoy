@@ -8,7 +8,19 @@
         Title="FreedomJoy"  Height="400" Width="400"
         d:DataContext="{d:DesignInstance local:MainWindow}">
     <Grid>
-        <Button x:Name="ButtonRunMain" Content="{Binding RunMainButtonText}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="ButtonRunMain_Click" Height="20"/>
-        <Ellipse x:Name="MainIndicator"  Fill="{Binding IndicatorFill}" HorizontalAlignment="Left" Height="20" Margin="363,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="19"/>
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="369" VerticalAlignment="Top" Width="392">
+            <TabItem Header="General">
+                <Grid Background="#FFE5E5E5">
+                    <Button x:Name="ButtonRunMain" Content="{Binding RunMainButtonText}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="ButtonRunMain_Click" Height="20"/>
+                    <Ellipse x:Name="MainIndicator"  Fill="{Binding IndicatorFill}" HorizontalAlignment="Left" Height="20" Margin="357,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="19"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Devices">
+                <Grid Background="#FFE5E5E5">
+                    <ComboBox x:Name="comboBox" ItemsSource="{Binding testlist01}" DisplayMemberPath="ProductName" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="366"/>
+                    <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,37,0,0" TextWrapping="Wrap" Text="{Binding SelectedItem.InstanceGuid, ElementName=comboBox, Mode=OneWay}"  VerticalAlignment="Top" Width="366"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

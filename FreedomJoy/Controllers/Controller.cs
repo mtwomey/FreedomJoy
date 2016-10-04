@@ -1,29 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SlimDX.DirectInput;
 
 namespace FreedomJoy.Controllers
 {
     public class Controller : IDisposable
     {
-        private readonly Joystick _joystick;
-        private readonly int _standardButtonCount;
-        private readonly int _povCount;
-        private readonly DirectInput _dinput; // Not really sure if I need to hang on to this for closing or if I can dispose of it after I get the joystick...
+        private Joystick _joystick;
+        private int _standardButtonCount;
+        private int _povCount;
+        private readonly DirectInput _dinput = new DirectInput(); // Not really sure if I need to hang on to this for closing or if I can dispose of it after I get the joystick...
         public JoystickState JoystickState { get; set; }
         public List<Button> Buttons { get; } = new List<Button>();
         public readonly Dictionary<string, Button> ButtonsByName = new Dictionary<string, Button>();
         public List<Pov> Povs { get; }= new List<Pov>();
         public readonly Dictionary<string, Pov> PovsByName = new Dictionary<string, Pov>();
-        private readonly int _axisCount;
+        private int _axisCount;
         public List<Axis> Axes = new List<Axis>();
         public readonly Dictionary<string, Axis> AxesByName = new Dictionary<string, Axis>();
+        public Guid Guid { get; set; }
+        public uint Id { get; set; }
 
-        public Controller(uint controllerNumber)
+        public Controller(string guid) // Not sure if this is better as a string or as an actual Guid
         {
-             _dinput = new DirectInput();
-            DeviceInstance di = _dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly)[(int)controllerNumber];
-            _joystick = new Joystick(_dinput, di.InstanceGuid);
+            var deviceInstances = _dinput.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly).Where(di => di.InstanceGuid.ToString() == guid).ToList(); // The ToList is important - it makes it evaluate the results immediately
+            if (deviceInstances.Any())
+            {
+                _init(deviceInstances.ElementAt(0).InstanceGuid);
+            }
+            else
+            {
+                throw new Exception("Could not find Physical Controller with guid: " + guid);
+            }
+        }
+
+        private void _init(Guid guid) // Move this out because I might want overloaded constructors
+        {
+            Guid = guid;
+            _joystick = new Joystick(_dinput, guid);
             _joystick.Properties.SetRange(1, 32768); // Match vJoy
             _standardButtonCount = _joystick.Capabilities.ButtonCount;
             _axisCount = _joystick.Capabilities.AxesCount;

@@ -37,7 +37,7 @@ namespace FreedomJoy
             for (int deviceNumber = 0; deviceNumber < _config.PhysicalDevices.Count(); deviceNumber++)
             {
                 JToken physicalDevice = _config.PhysicalDevices[deviceNumber];
-                Controller controller = ControllerFactory.GetPhysicalController((uint) physicalDevice["systemId"]);
+                Controller controller = ControllerFactory.GetPhysicalController((string)physicalDevice["guid"]);
                 _activeControllers.Add(controller);
 
                 for (int povNumber = 0; povNumber < physicalDevice["povs"].Count(); povNumber++)
@@ -70,7 +70,7 @@ namespace FreedomJoy
             foreach (JToken mapping in _config.MappingsSimpleButton)
             {
                 var requestedPhysicalDevice = (uint)mapping["physicalDevice"]["id"];
-                var physicalDeviceSystemId = _config.GetPhysicalDeviceSystemIdFromId(requestedPhysicalDevice);
+                var physicalDeviceGuid = _config.GetPhysicalDeviceGuidFromId(requestedPhysicalDevice);
                 var requestedVjoyDevice = (uint)mapping["vJoyDevice"]["id"];
                 var vJoyDeviceSystemId = _config.GetVjoyDeviceSystemIdFromId(requestedVjoyDevice);
 
@@ -78,7 +78,7 @@ namespace FreedomJoy
                       controllerPressedButtons: mapping["physicalDevice"]["buttons"].ToObject<string[]>(),
                       controllerNotPressedButtons: mapping["physicalDevice"]["notButtons"] != null ? mapping["physicalDevice"]["notButtons"].ToObject<string[]>() : new string []{},
                       vJoyPressedButtons: mapping["vJoyDevice"]["buttons"].ToObject<string[]>(),
-                      controller: ControllerFactory.GetPhysicalController(physicalDeviceSystemId),
+                      controller: ControllerFactory.GetPhysicalController(physicalDeviceGuid),
                       vcontroller: ControllerFactory.GetvJoyController(vJoyDeviceSystemId)
                 );
                 _controllerMaps.Add(newSimpleButtonMapping);
@@ -90,7 +90,7 @@ namespace FreedomJoy
             foreach (JToken mapping in _config.MappingsVirtualAxis)
             {
                 var requestedPhysicalDevice = (uint)mapping["physicalDevice"]["id"];
-                var physicalDevice = ControllerFactory.GetPhysicalController(_config.GetPhysicalDeviceSystemIdFromId(requestedPhysicalDevice));
+                var physicalDevice = ControllerFactory.GetPhysicalController(_config.GetPhysicalDeviceGuidFromId(requestedPhysicalDevice));
                 var requestedVjoyDevice = (uint)mapping["vJoyDevice"]["id"];
                 var vJoyDevice = ControllerFactory.GetvJoyController(_config.GetVjoyDeviceSystemIdFromId(requestedVjoyDevice));
 
@@ -113,7 +113,7 @@ namespace FreedomJoy
             foreach (JToken mapping in _config.MappingsAxis)
             {
                 var requestedPhysicalDevice = (uint)mapping["physicalDevice"]["id"];
-                var physicalDevice = ControllerFactory.GetPhysicalController(_config.GetPhysicalDeviceSystemIdFromId(requestedPhysicalDevice));
+                var physicalDevice = ControllerFactory.GetPhysicalController(_config.GetPhysicalDeviceGuidFromId(requestedPhysicalDevice));
                 var requestedVjoyDevice = (uint)mapping["vJoyDevice"]["id"];
                 var vJoyDevice = ControllerFactory.GetvJoyController(_config.GetVjoyDeviceSystemIdFromId(requestedVjoyDevice));
 

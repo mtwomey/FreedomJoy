@@ -29,9 +29,9 @@ namespace FreedomJoy
             MappingsAxis = _config["mappings"]["axis"];
         }
 
-        public uint GetPhysicalDeviceSystemIdFromId(uint id)
+        public string GetPhysicalDeviceGuidFromId(uint id)
         {
-            return  PhysicalDevices.SelectToken("[?(@.id == " + id + ")]")["systemId"].ToObject<uint>(); // Holy shit I miss javascript...
+            return  PhysicalDevices.SelectToken("[?(@.id == " + id + ")]")["guid"].ToObject<string>(); // Holy shit I miss javascript...
         }
         public uint GetVjoyDeviceSystemIdFromId(uint id)
         {
