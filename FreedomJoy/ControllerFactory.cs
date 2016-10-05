@@ -23,6 +23,16 @@ namespace FreedomJoy
             return _physicalControllersByGuid[guid.ToString()];
         }
 
+        public static void ReleasePhysicalControllers()
+        {
+            foreach (KeyValuePair<string, Controller> entry in _physicalControllersByGuid)
+            {
+                var controller = entry.Value;
+                controller.Dispose();
+            }
+            _physicalControllersByGuid = new Dictionary<string, Controller>();
+        }
+
         public static Vcontroller GetvJoyController(uint n) // Todo: Change this (everywhere) to use guid instead of id (like I did for physical controllers)
         {
             if (!_vJoyControllers.ContainsKey(n))

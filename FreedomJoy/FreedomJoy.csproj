@@ -91,6 +91,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="ControllerFactory.cs" />
     <Compile Include="Controllers\ControllerInfo.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Annotations.cs" />

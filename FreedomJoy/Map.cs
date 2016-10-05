@@ -12,19 +12,29 @@ namespace FreedomJoy
     class Map
     {
         private readonly Config _config;
-        private readonly Dictionary<string, Controller> _controllers;
-        private readonly Dictionary<string, Vcontroller> _vcontrollers;
-        private readonly ControllerMaps _controllerMaps = new ControllerMaps();
-        private readonly HashSet<Controller> _activeControllers = new HashSet<Controller>();
-        private readonly HashSet<Vcontroller> _activeVcontrollers = new HashSet<Vcontroller>();
+        private ControllerMaps _controllerMaps;
+        private HashSet<Controller> _activeControllers;
+        private HashSet<Vcontroller> _activeVcontrollers;
         private readonly uint _updateRate = 20;
-        private bool _keepRunning = true;
+        private Timer _updateThread;
+
 
         public Map()
         {
-            _controllers = new Dictionary<string, Controller>();
-            _vcontrollers = new Dictionary<string, Vcontroller>();
             _config = new Config();
+            _initAll();
+            Run();
+        }
+
+        public void Reset()
+        {
+            _initAll();
+        }
+        private void _initAll()
+        {
+            _controllerMaps = new ControllerMaps();
+            _activeControllers = new HashSet<Controller>();
+            _activeVcontrollers = new HashSet<Vcontroller>();
             _initPhysicalDevices();
             _initVjoyDevices();
             _initSimpleButtonMappings();
@@ -127,9 +137,9 @@ namespace FreedomJoy
             }
         }
 
-        public void Run(CancellationToken cancellationToken)
+        public void Run()
         {
-            while (true)
+            _updateThread = new Timer(delegate(Object state)
             {
                 foreach (Controller controller in _activeControllers)
                 {
@@ -140,12 +150,12 @@ namespace FreedomJoy
                 {
                     vcontroller.Update();
                 }
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    break;
-                }
-                Thread.Sleep((int)_updateRate);
-            }
+            }, null, 0, _updateRate);
+        }
+
+        public void Stop()
+        {
+            _updateThread.Dispose();
         }
     }
 }

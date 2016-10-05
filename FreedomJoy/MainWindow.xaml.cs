@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Media;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Media;
 using FreedomJoy.Annotations;
 using FreedomJoy.Controllers;
+using FreedomJoy.vJoy;
 using SlimDX.DirectInput;
 
 namespace FreedomJoy
@@ -17,11 +18,13 @@ namespace FreedomJoy
     /// </summary>
     public partial class MainWindow : INotifyPropertyChanged
     {
-        private CancellationTokenSource _mainMapperTaskTokenSource;
-        private bool _mainMapperTaskRunning = false;
+        private bool _mainMapperTaskRunning = true;
         private SolidColorBrush _indicatorFill;
-        private string _runMainButtonText = "Start Main";
+        private string _runMainButtonText = "Stop Main";
         public List<DeviceInstance> testlist01 { get; set; } = new List<DeviceInstance>();
+        private int _physicalControllerCount = 0;
+        private Timer _checkControllersThread;
+        private DirectInput _di = new DirectInput();
 
         public SolidColorBrush IndicatorFill
         {
@@ -53,15 +56,17 @@ namespace FreedomJoy
         {
             InitializeComponent();
             DataContext = this;
-            IndicatorFill = RedBrush;
+            IndicatorFill = GreenBrush;
+            string s1="";
+            BindingOperations.EnableCollectionSynchronization(Logger.Logs, ""); // Todo: figure out why this works and how it really should be done to log to a static class and bind to it as well...
+            Logger.Log("Starting up...");
             try
             {
                 _map = new Map();
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "FreedomJoy Error");
-                System.Environment.Exit(1);
+                Logger.Log(e.Message);
             }
 
 
@@ -71,6 +76,31 @@ namespace FreedomJoy
                 testlist01.Add(device);
             };
 
+            _checkControllersThread = new Timer(_checkControllersCallback, null, 0, 5000);
+
+        }
+
+
+        private void _checkControllersCallback(Object state)
+        {
+            try
+            {
+                var newPhysicalControllerCount = _di.GetDevices(DeviceClass.GameController, DeviceEnumerationFlags.AttachedOnly).Count; // I think this call is expensive, if I do it too often, CPU util goes up
+                if (newPhysicalControllerCount != _physicalControllerCount)
+                {
+                    Logger.Log("Controller count changed from " + _physicalControllerCount + " to " + newPhysicalControllerCount);
+                    _physicalControllerCount = newPhysicalControllerCount; // This is first so that it's updated ahead of time in case of exception
+                    _map.Stop();
+                    ControllerFactory.ReleasePhysicalControllers();
+                    _map.Reset();
+                    _map.Run();
+                    
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.Message);
+            }
         }
 
         private void ButtonRunMain_Click(object sender, RoutedEventArgs e)
@@ -81,19 +111,17 @@ namespace FreedomJoy
 
             if (!_mainMapperTaskRunning)
             {
-                _mainMapperTaskTokenSource = new CancellationTokenSource();
-                Task.Factory.StartNew(() => { _map.Run(_mainMapperTaskTokenSource.Token); });
-
+                _map.Run();
                 _mainMapperTaskRunning = true;
                 IndicatorFill = GreenBrush;
                 RunMainButtonText = "Stop Main";
             }
             else
             {
-                _mainMapperTaskTokenSource.Cancel();
                 _mainMapperTaskRunning = false;
                 IndicatorFill = RedBrush;
                 RunMainButtonText = "Start Main";
+                _map.Stop();
             }
 
         }
